@@ -1,71 +1,96 @@
 <div class="row">
-  <div class="col-12">
-    <!-- Default box -->
-    <!-- Card Filter -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title h5 font-weight-bold">DASHBOARD KAJIAN</div>
-        <div class="row">
+  <div class="container">
+    <div class="col-12">
+      <!-- Default box -->
+      <!-- Card Filter -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title font-weight-bold">DASHBOARD KAJIAN</h5>
+          <div class="row">
+          </div>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <label for="">Periode</label>
-              <div class="d-flex flex-row">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="">Periode</label>
+                <div class="d-flex flex-row">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" id="startdate" placeholder="Tanggal Awal" name="tgl_awal" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm" autocomplete="off">
                   </div>
-                  <input type="text" id="startdate" placeholder="Tanggal Awal" name="tgl_awal" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm" autocomplete="off">
-                </div>
-                <div class="input-group ml-2">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  <div class="input-group ml-2">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" id="enddate" placeholder="Tanggal Akhir" name="tgl_akhir" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm " autocomplete="off"><i class="fas fa-calender"></i>
                   </div>
-                  <input type="text" id="enddate" placeholder="Tanggal Akhir" name="tgl_akhir" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm " autocomplete="off"><i class="fas fa-calender"></i>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label>Devisi</label>
-                <div class="input-group">
-                  <select name="progres" class="form-control form-control-sm progress"></select>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label>Pic</label>
+            <div class="row mt-2">
+              <div class="col-lg-3">
                 <div class="form-group">
-                  <select name="progres" class="form-control form-control-sm progress"></select>
+                  <label>Devisi</label>
+                  <div class="input-group">
+                    <select name="devisi" id="devisi" class="form-control form-control-sm">
+                      <option value="" selected disabled><b>Filter Devisi</b></option>
+                      <?php foreach ($devisi as $v) : ?>
+                        <option value="<?= $v['id']; ?>"><?= $v['divisi']; ?></option>
+                      <?php endforeach ?>
+                      <option value="all">ALL</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label>Kajian</label>
+              <div class="col-lg-3">
                 <div class="form-group">
-                  <select name="progres" class="form-control form-control-sm progress"></select>
+                  <label>Pic</label>
+                  <div class="form-group">
+                    <select name="pic" id="pic" class="form-control form-control-sm">
+                      <option value="" selected disabled><b>Filter PIC</b></option>
+                      <?php foreach ($pic as $v) : ?>
+                        <option value="<?= $v['id']; ?>"><?= $v['nama_pic']; ?></option>
+                      <?php endforeach ?>
+                      <option value="all">ALL</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label>Progress</label>
+              <div class="col-lg-3">
                 <div class="form-group">
-                  <select name="progres" class="form-control form-control-sm progress"></select>
+                  <label>Kajian</label>
+                  <div class="form-group">
+                    <select name="kajian" id="kajian" class="form-control form-control-sm">
+                      <option value="" selected disabled><b>Filter PIC</b></option>
+                      <?php foreach ($kaji as $v) : ?>
+                        <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
+                      <?php endforeach ?>
+                      <option value="all">ALL</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label>Progress</label>
+                  <div class="form-group">
+                    <select name="progress" id="progress" class="form-control form-control-sm">
+                      <?php foreach ($prog as $v) : ?>
+                        <option value="<?= $v['id']; ?>"><?= $v['status']; ?></option>
+                      <?php endforeach ?>
+                      <option value="all">ALL</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <button class="btn btn-primary btn-sm"> Filter</button>
+            <div class="row">
+              <div class="col-lg-6">
+                <button class="btn btn-primary btn-sm"> Filter</button>
+              </div>
             </div>
           </div>
         </div>
@@ -74,28 +99,36 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-        <table class="table tabel_arsip tabel-hover">
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>NO. MEMO</th>
-              <th>KAJIAN</th>
-              <th>DEVISI</th>
-              <th>TIPE</th>
-              <th>TANGGAL</th>
-              <th>TANGGAL PROS</th>
-              <th>TANGGAL DOK</th>
-              <th>TANGGAL SELESAI</th>
-              <th>HARI</th>
-              <th>PROGRESS</th>
-              <th>PIC</th>
-              <th>ALAT</th>
-            </tr>
-          </thead>
-        </table>
+  <div class="container">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header bg-primary">
+          <div class="d-flex flex-row justify-content-between">
+            <h3 class="card-title font-weight-bold"><i class="fas fa-file-alt"></i> ARSIP</h3>
+            <button class=" card-title btn btn-sm btn-light"><i class="fas fa-plus"></i> <b>Data</b></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm table-bordered tabel_arsip tabel-hover font-weight-bold" style="zoom: 80%;">
+            <thead style="background-color: antiquewhite;">
+              <tr>
+                <th>NO</th>
+                <th>NO.Memo</th>
+                <th style="width: 20%;">PIC</th>
+                <th>KAJIAN</th>
+                <th>DIVISI</th>
+                <th>TIPE</th>
+                <th style="width: 8%;">TGL INPUT</th>
+                <th style="width: 8%;">TGL PROS</th>
+                <th style="width: 8%;">TGL DOK</th>
+                <th style="width: 8%;">TGL SELESAI</th>
+                <th>HARI</th>
+                <th>PROGRESS</th>
+                <th>ALAT</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -112,29 +145,22 @@
     let tgl_awal = $("#startdate").val();
     // Mendefinisikan tabel arsip menggunakan datatabel
     var table1 = $('.tabel_arsip').DataTable({
-      // "processing": true,
-      // "serverSide": true,
+      "processing": true,
+      "serverSide": true,
       "responsive": false,
       "destroy": true,
-      "language": {
-        "infoFiltered": "",
-        "processing": "<i class='fa fa-refresh fa-spin ml-4'></i> Request Server"
-      },
-      "columnDefs": [{
-        "targets": [0, 2, 3, 4],
-        "orderable": false
-      }],
+      "responsive": false,
+      // "columnDefs": [{
+      //   "targets": [0, 2, 3, 4],
+      //   "orderable": false
+      // }],
       "select": true,
-      "lengthMenu": [
-        [10, 50, 100, -1],
-        [10, 50, 100, "All"]
-      ],
       "ajax": {
-        "url": "<?php echo site_url(''); ?>",
+        "url": "<?php echo site_url('request_arsip_table'); ?>",
         "type": "POST",
-        "data": function(data) {
-          data.tgl = tgl_awal;
-        },
+        // "data": function(data) {
+        //   data.tgl = tgl_awal;
+        // },
         "error": function(jqXHR, textStatus, errorThrown) {
           try {
             // Coba untuk mengurai pesan kesalahan dalam respons JSON jika ada
