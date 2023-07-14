@@ -61,6 +61,11 @@ $route[md5('admin')] = 'Admin';
 
 // Dashboard Users
 $route[md5('users')] = 'Users/dashboard';
+$route['request_arsip_table'] = 'Users/call_serverside_arsip';
+
+
+
+// END ROUTE USERS
 
 
 
