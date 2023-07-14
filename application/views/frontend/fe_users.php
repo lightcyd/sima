@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>SIMA | ADMINISTRATOR</title>
+  <title>SIMA</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -23,6 +23,7 @@
 
   <!-- Datatables -->
   <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>buttons.dataTables.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>dataTables.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>select.dataTables.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>sweetalert2.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>select2.min.css" />
@@ -53,7 +54,6 @@
 
   <!-- Datatables -->
   <script type="text/javascript" src="<?= base_url('assets/datatable/') ?>jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="<?= base_url('assets/datatable/') ?>dataTables.bootstrap5.min.js"></script>
   <script type="text/javascript" src="<?= base_url('assets/datatable/') ?>dataTables.buttons.min.js"></script>
   <script type="text/javascript" src="<?= base_url('assets/datatable/') ?>jszip.min.js"></script>
   <script type="text/javascript" src="<?= base_url('assets/datatable/') ?>buttons.html5.min.js"></script>
@@ -134,6 +134,45 @@
           $("#end").datepicker("option", "minDate", selected);
         }
       });
+    });
+  </script>
+
+  <!-- DEFAULT TEMPLATE FOR DATATABELS SETTINGS -->
+  <script type="text/javascript">
+    $.extend($.fn.dataTable.defaults, {
+      dom: 'Bfrtip',
+      "aLengthMenu": [
+        [10, 50, 100, 500, -1],
+        [10, 50, 100, 500, 'ALL']
+      ],
+      "language": {
+        zeroRecords: "Maaf data tidak ditemukan",
+        info: "<b class='ml-1 text-muted opacity-50'>_START_ - _END_ dari _TOTAL_ Data</b>",
+        infoEmpty: "0 sampai 0 dari 0 data",
+        infoFiltered: "<b class='text-muted opacity-50'>(Disaring dari _MAX_ Total Data)</b>",
+        searchPlaceholder: 'Cari disini',
+        search: '',
+        thousands: '.'
+      },
+      buttons: ['pageLength', {
+          extend: 'print',
+          messageTop: 'Print by <?= $this->session->userdata("nama") ?> at <?= date("d/m/Y H:i:s") ?>',
+          customize: function(win) {
+            $(win.document.body)
+              .css('font-size', '10pt')
+            $(win.document.body).find('table')
+              .addClass('compact')
+              .css('font-size', 'inherit');
+          }
+        },
+        'excel',
+        'copy',
+        'colvis'
+      ],
+      select: true,
+      responsive: true,
+      scrollY: '100vh',
+      scrollCollapse: true,
     });
   </script>
   <!-- ./wrapper -->
