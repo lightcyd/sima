@@ -1,18 +1,26 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Serverside_dashboard_index extends CI_Model
+class Serverside_arsip extends CI_Model
 {
 
-  var $table = 'outstand_barcode';
-  var $column_order = array('tgl', 'nama', 'terima', 'selesai', 'sisah');
-  var $column_search = array('tgl', 'nama', null, null, null);
-  var $order = array('tgl' => 'desc');
+  // Call database detail_arsip 
+  var $table = 'detail_arsip';
+  var $column_order = array('id', 'no_memo', 'devisi',  'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
+  var $column_search = array('id', 'no_memo', 'devisi', 'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
+  var $order = array('tgl_input' => 'desc');
 
+  /**
+   * Retrieves the query for the datatables in the PHP function.
+   *
+   * @return void
+   * This code defines a private function in a PHP class that retrieves a query for datatables. It iterates over an array of columns to build a search query based on user input. It also handles sorting the results based on user-defined order.
+   */
   private function _get_datatables_query()
   {
-    $bln = date('m');
-    $this->db->where('MONTH(tgl)', $bln)->order_by('tgl', 'desc')->from($this->table);
+    // $bln = date('m');
+    // $this->db->where('MONTH(tgl)', $bln)->order_by('tgl', 'desc')->from($this->table);
+    $this->db->from($this->table);
     $i = 0;
     foreach ($this->column_search as $item) // loop column 
     {
@@ -40,6 +48,12 @@ class Serverside_dashboard_index extends CI_Model
     }
   }
 
+  /**
+   * Retrieves data from the database.
+   *
+   * @return array The retrieved data.
+   * This code snippet is a PHP function that retrieves data from a database. It uses the CodeIgniter framework's database library to execute a query and return the result as an array. The function takes into account any pagination parameters passed via the $_POST array to limit the number of results returned.
+   */
   public function get_data()
   {
     $this->_get_datatables_query();
@@ -49,6 +63,12 @@ class Serverside_dashboard_index extends CI_Model
     return $query->result();
   }
 
+  /**
+   * Counts the number of rows in the result set after applying filters.
+   *
+   * @throws Some_Exception_Class description of exception
+   * @return int the number of rows
+   */
   public function count_filtered()
   {
     $this->_get_datatables_query();
@@ -56,6 +76,12 @@ class Serverside_dashboard_index extends CI_Model
     return $query->num_rows();
   }
 
+  /**
+   * Count all the results in the database table.
+   *
+   * @throws Exception If there is an error counting the results.
+   * @return int The total count of results.
+   */
   public function count_all()
   {
     $this->db->from($this->table);
