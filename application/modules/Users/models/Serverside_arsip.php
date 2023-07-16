@@ -6,8 +6,8 @@ class Serverside_arsip extends CI_Model
 
   // Call database detail_arsip 
   var $table = 'detail_arsip';
-  var $column_order = array('id', 'no_memo', 'devisi',  'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
-  var $column_search = array('id', 'no_memo', 'devisi', 'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
+  var $column_order = array('id', 'no_memo', 'divisi',  'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
+  var $column_search = array('id', 'no_memo', 'divisi', 'nama_pic', 'jenis_kajian', 'sts', 'kajian_resiko', 'follow_up', 'tgl_memo', 'tgl_disposisi', 'tgl_input', 'tgl_selesai', 'jarak_hari');
   var $order = array('tgl_input' => 'desc');
 
   /**

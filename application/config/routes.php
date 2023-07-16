@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -49,6 +48,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'Auth/login';
 
 // AUTH
@@ -62,12 +62,9 @@ $route[md5('admin')] = 'Admin';
 // Dashboard Users
 $route[md5('users')] = 'Users/dashboard';
 $route['request_arsip_table'] = 'Users/call_serverside_arsip';
-
-
+$route['add/arsip'] = 'Users/add_arsip';
 
 // END ROUTE USERS
-
-
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

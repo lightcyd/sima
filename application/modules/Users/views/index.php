@@ -36,7 +36,7 @@
                   <label>Devisi</label>
                   <div class="input-group">
                     <select name="devisi" id="devisi" class="form-control form-control-sm">
-                      <option value="" selected disabled><b>Filter Devisi</b></option>
+                      <option value="" selected disabled><b>Filter Divisi</b></option>
                       <?php foreach ($devisi as $v) : ?>
                         <option value="<?= $v['id']; ?>"><?= $v['divisi']; ?></option>
                       <?php endforeach ?>
@@ -105,7 +105,7 @@
         <div class="card-header bg-primary">
           <div class="d-flex flex-row justify-content-between">
             <h3 class="card-title font-weight-bold"><i class="fas fa-file-alt"></i> ARSIP</h3>
-            <button class=" card-title btn btn-sm btn-light"><i class="fas fa-plus"></i> <b>Data</b></button>
+            <a href="<?= base_url('add/arsip'); ?>" class="card-title btn btn-sm btn-light"><i class="fas fa-plus"></i> <b>Data</b></a>
           </div>
         </div>
         <div class="card-body">
@@ -113,21 +113,22 @@
             <thead style="background-color: antiquewhite;">
               <tr>
                 <th>NO</th>
-                <th>NO.Memo</th>
+                <th style="width: 5%;">NO.MEMO</th>
                 <th style="width: 20%;">PIC</th>
-                <th>KAJIAN</th>
-                <th>DIVISI</th>
-                <th>TIPE</th>
-                <th style="width: 8%;">TGL INPUT</th>
-                <th style="width: 8%;">TGL PROS</th>
-                <th style="width: 8%;">TGL DOK</th>
-                <th style="width: 8%;">TGL SELESAI</th>
-                <th>HARI</th>
+                <th style="width: 8%;">KAJIAN</th>
+                <th style="width: 8%;">DIVISI</th>
+                <th style="width: 8%;">TIPE</th>
+                <th>TGL</th>
+                <th>TGL PROS</th>
+                <th>TGL DOK</th>
+                <th>TGL SELESAI</th>
+                <th style="width: 8%;">HARI</th>
                 <th>PROGRESS</th>
                 <th>ALAT</th>
               </tr>
             </thead>
           </table>
+
         </div>
       </div>
     </div>

@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Users extends MX_Controller
+class Users extends CI_Controller
 {
   function __construct()
   {
     parent::__construct();
     $this->load->model('Users/Serverside_arsip', 'sam');
+    $this->load->library('FirexEnkripsi');
     check_login();
     check_user();
   }
@@ -20,12 +21,17 @@ class Users extends MX_Controller
    */
   function dashboard()
   {
-    $data['devisi'] = $this->db->get('ms_devisi')->result_array();
+    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
     $data['pic'] = $this->db->get('ms_pic')->result_array();
     $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
     $data['prog'] = $this->db->get('ms_status')->result_array();
-
     $this->templates->load('frontend/fe_users', 'index', $data);
+  }
+
+  function add_arsip()
+  {
+    $data['kelompok'] = $this->db->get('ms_department')->result_array();
+    $this->templates->load('frontend/fe_users', 'add', $data);
   }
 
   /**
@@ -48,15 +54,15 @@ class Users extends MX_Controller
       $row[] = $v->no_memo;
       $row[] = $v->nama_pic;
       $row[] = $v->kajian_resiko;
-      $row[] = $v->devisi;
+      $row[] = $v->divisi;
       $row[] = $v->jenis_kajian;
       $row[] = !empty($v->tgl_input) ? date('d-M-Y', strtotime($v->tgl_input)) : '-';
       $row[] = !empty($v->tgl_disposisi) ? date('d-M-Y', strtotime($v->tgl_disposisi)) : '-';
       $row[] = !empty($v->tgl_memo) ? date('d-M-Y', strtotime($v->tgl_memo)) : '-';
       $row[] = !empty($v->tgl_selesai) ? date('d-M-Y', strtotime($v->tgl_selesai)) : '-';
-      $row[] = $v->jarak_hari;
+      $row[] = $v->jarak_hari . ' Hari';
       $row[] = '<h6><span class="badge badge-primary"> ' . strtoupper($v->sts) . '</span></h6>';
-      $row[] = '<button type="button" class="btn btn-info btn-sm" onclick="detail(' . $v->id . ')"><i class="fa fa-eye"></i></button>';
+      $row[] = '<div class="btn-group"><button type="button" class="btn btn-secondary btn-xs" onclick="detail(' . $v->id . ')"><i class="fa fa-eye"></i></button><button type="button" class="btn btn-danger ml-1 btn-xs" onclick="detail(' . $v->id . ')"><i class="fa fa-trash"></i></button></div>';
       $data[] = $row;
     }
 
