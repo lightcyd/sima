@@ -24,7 +24,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="add_no_memo" class="form-label">NOMOR MEMO <span class="text-danger">*</span></label>
-                  <input type="text" name="add_no_memo" id="add_no_memo" class="form-control form-control-sm" placeholder="No. Memo"></input>
+                  <input type="text" name="add_no_memo" id="add_no_memo" class="form-control form-control-sm <?= form_error('add_no_memo') ? 'is-invalid' : ''; ?>" placeholder="No. Memo" aria-describedby="add_no_memo" value="<?= set_value('add_no_memo'); ?>"></input>
+                  <div class="invalid-feedback"><?= form_error('add_no_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -32,12 +33,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="add_divisi" class="form-label">DIVISI <span class="text-danger">*</span></label>
-                  <select type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm">
+                  <select type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm <?= form_error('add_divisi') ? 'is-invalid' : ''; ?>">
                     <option value="">[ PILIH DIVISI ]</option>
                     <?php foreach ($devisi as $v) : ?>
-                      <option value="<?= $v['id']; ?>"><?= $v['divisi']; ?></option>
+                      <option value="<?= $v['id']; ?>" <?= set_value('add_divisi') == $v['id'] ? 'selected' : ''; ?>><?= $v['divisi']; ?></option>
                     <?php endforeach ?>
                   </select>
+                  <div class="invalid-feedback"><?= form_error('add_divisi', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -45,12 +47,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="add_pic" class="form-label">PIC <span class="text-danger">*</span></label>
-                  <select type="text" name="add_pic" id="add_pic" class="form-control form-control-sm">
+                  <select type="text" name="add_pic" id="add_pic" class="form-control form-control-sm <?= form_error('add_pic') ? 'is-invalid' : ''; ?>">
                     <option value="">[ PILIH PIC ]</option>
                     <?php foreach ($pic as $v) : ?>
-                      <option value="<?= $v['id']; ?>"><?= $v['nama_pic']; ?></option>
+                      <option value="<?= $v['id']; ?>" <?= set_value('add_pic') == $v['id'] ? 'selected' : ''; ?>><?= $v['nama_pic']; ?></option>
                     <?php endforeach ?>
                   </select>
+                  <div class="invalid-feedback"><?= form_error('add_pic', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -60,7 +63,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="startdate" class="form-label">TANGGAL MEMO <span class="text-danger">*</span></label>
-                  <input type="text" name="add_tgl_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker"></input>
+                  <input type="text" value="<?= set_value('add_tgl_memo'); ?>" name="add_tgl_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>"></input>
+                  <div class="invalid-feedback"><?= form_error('add_tgl_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -68,7 +72,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="enddate" class="form-label">TANGGAL DISPOSISI <span class="text-danger">*</span></label>
-                  <input type="text" name="add_tgl_disposisi" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker"></input>
+                  <input type="text" name="add_tgl_disposisi" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>" value="<?= set_value('add_tgl_disposisi'); ?>"></input>
+                  <div class="invalid-feedback"><?= form_error('add_tgl_disposisi', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -79,12 +84,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="mb-2">
                   <div class="form-group">
                     <label for="add_jns_kajian" class="form-label">JENIS KAJIAN <span class="text-danger">*</span></label>
-                    <select name="add_jns_kajian" id="add_jns_kajian" cols="1" rows="3" class="form-control form-control-sm">
+                    <select name="add_jns_kajian" id="add_jns_kajian" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_jns_kajian') ? 'is-invalid' : ''; ?>">
                       <option value="">[ PILIH KAJIAN ]</option>
                       <?php foreach ($kaji as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
+                        <option value="<?= $v['id']; ?>" <?= $v['id'] == set_value('add_jns_kajian') ? 'selected' : ''; ?>><?= $v['jenis_kajian']; ?></option>
                       <?php endforeach ?>
                     </select>
+                    <div class="invalid-feedback"><?= form_error('add_jns_kajian', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                   </div>
                 </div>
               </div>
@@ -92,12 +98,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="mb-2">
                   <div class="form-group">
                     <label for="add_status" class="form-label">STATUS <span class="text-danger">*</span></label>
-                    <select name="add_status" id="add_status" cols="1" rows="3" class="form-control form-control-sm">
+                    <select name="add_status" id="add_status" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_status') ? 'is-invalid' : ''; ?>">
                       <option value="">[ PILIH STATUS ]</option>
                       <?php foreach ($prog as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['status']; ?></option>
+                        <option value="<?= $v['id']; ?>" <?= $v['id'] == set_value('add_status') ? 'selected' : ''; ?>><?= $v['status']; ?></option>
                       <?php endforeach ?>
                     </select>
+                    <div class="invalid-feedback"><?= form_error('add_status', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                   </div>
                 </div>
               </div>
@@ -106,7 +113,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="add_kajian_resiko" class="form-label">Follow <span class="text-danger">*</span></label>
-                  <textarea name="kajian_resiko" id="add_kajian_resiko" cols="1" rows="3" class="form-control form-control-sm" placeholder="Ketik disini..."></textarea>
+                  <textarea name="add_kajian_resiko" id="add_kajian_resiko" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_kajian_resiko') ? 'is-invalid' : ''; ?>" placeholder="Ketik disini..."><?= set_value('add_kajian_resiko'); ?></textarea>
+                  <div class="invalid-feedback"><?= form_error('add_kajian_resiko', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
             </div>
@@ -116,7 +124,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="add_tgl_kelengkapan_memo" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA MEMO</label>
-                <input type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker" placeholder="Pilih Tanggal">
+                <input value="<?= set_value('add_tgl_kelengkapan_memo'); ?>" type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker <?= form_error('add_tgl_kelengkapan_memo') ? 'is-invalid' : ''; ?>" placeholder="Pilih Tanggal">
+                <div class="invalid-feedback"><?= form_error('add_tgl_kelengkapan_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
               </div>
             </div>
             <div class="col-lg-6">
@@ -152,7 +161,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <div class="card-body">
           <div class="d-flex flex-column">
             <div class="col-lg-12 mb-2 badge badge-secondary">
-              <h5 class="card-title font-weight-bold">NI KELOMPOK</h5>
+              <h5 class="card-title font-weight-bold">DEPARTMENT</h5>
             </div>
             <div class="col-lg-12">
               <div class="row">
@@ -160,7 +169,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <div class="col-lg-3">
                     <div class="mb-3">
                       <label for="<?= $v['department']; ?>" class="form-label"><?= $v['department']; ?></label>
-                      <input type="file" name="memo_<?= $v['id']; ?>" class="form-control form-control-sm" id="<?= $v['department']; ?>">
+                      <input type="file" name="memo_file[]" class="form-control form-control-sm" id="<?= $v['department']; ?>">
+                      <input type="hidden" name="id_departemen_file[]" value="<?= $v['id']; ?>">
                     </div>
                   </div>
                 <?php endforeach ?>
