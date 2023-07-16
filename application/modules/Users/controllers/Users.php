@@ -30,8 +30,31 @@ class Users extends CI_Controller
 
   function add_arsip()
   {
+    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
+    $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
+    $data['pic'] = $this->db->get('ms_pic')->result_array();
+    $data['prog'] = $this->db->get('ms_status')->result_array();
     $data['kelompok'] = $this->db->get('ms_department')->result_array();
     $this->templates->load('frontend/fe_users', 'add', $data);
+  }
+
+  function proses_simpan()
+  {
+    $post = $this->input->post();
+    $data_memo = [
+      'no_memo' => antixss($post['add_no_memo']),
+      'jenis_kajian' => antixss($post['add_jns_kajian']),
+      'divisi' => antixss($post['add_divisi']),
+      'pic' => antixss($post['add_pic']),
+      'status' => antixss($post['add_status']),
+      'kajian_resiko' => antixss($post['add_kajian_resiko']),
+
+      'tgl_memo' => antixss($post['add_tgl_memo']),
+      'tgl_disposisi' => antixss($post['add_tgl_disposisi']),
+      'tgl_input' => antixss($post['add_tgl_input']),
+
+    ];
+    echo json_encode($data_memo);
   }
 
   /**

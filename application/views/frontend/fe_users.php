@@ -99,10 +99,15 @@
       <div class="content-header">
         <div class="container">
           <div class="col-lg-12">
-            <div class="btn-group">
-              <button class="btn btn-primary btn-sm" onclick="window.location.href='<?= base_url(); ?>'"><i class="fas fa-home"></i> Home</button>
-              <button class="btn btn-outline-secondary btn-sm" onclick="window.location.reload()"><i class="fas fa-undo-alt"></i> Refresh</button>
-              <button class="btn btn-dark btn-sm" onclick="goback()"><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
+            <div class="d-flex flex-row justify-content-between">
+              <div class="btn-group btn-group-sm">
+                <span class="btn btn-sm btn-primary"><i class="fas fa-calendar"></i> <span id="Date"></span> <i class="fas fa-clock"></i> <span id="hours">00</span>:<span id="min">00</span>:<span id="sec">00</span></span>
+              </div>
+              <div class="btn-group btn-group-sm">
+                <button class="btn btn-primary btn-sm" onclick="window.location.href='<?= base_url(); ?>'"><i class="fas fa-home"></i> Home</button>
+                <button class="btn btn-secondary btn-sm" onclick="window.location.reload()"><i class="fas fa-undo-alt"></i> Refresh</button>
+                <button class="btn btn-secondary btn-sm" onclick="goback()"><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
+              </div>
             </div>
           </div>
         </div>
@@ -115,7 +120,32 @@
     </div>
     <!-- /.control-sidebar -->
   </div>
+  <script>
+    $(document).ready(function() {
+      var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      var dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
+      function updateTime() {
+        var currentDate = new Date();
+
+        var day = dayNames[currentDate.getDay()];
+        var date = currentDate.getDate();
+        var month = monthNames[currentDate.getMonth()];
+        var year = currentDate.getFullYear();
+
+        var hours = currentDate.getHours();
+        var minutes = currentDate.getMinutes();
+        var seconds = currentDate.getSeconds();
+
+        $('#Date').html(day + ", " + date + " " + month + " " + year);
+        $('#hours').html((hours < 10 ? "0" : "") + hours);
+        $('#min').html((minutes < 10 ? "0" : "") + minutes);
+        $('#sec').html((seconds < 10 ? "0" : "") + seconds);
+      }
+      updateTime(); // Update the time immediately when the page loads
+      setInterval(updateTime, 1000); // Update the time every second
+    });
+  </script>
   <script>
     $(document).ready(function() {
 

@@ -64,7 +64,7 @@
                   <label>Kajian</label>
                   <div class="form-group">
                     <select name="kajian" id="kajian" class="form-control form-control-sm">
-                      <option value="" selected disabled><b>Filter PIC</b></option>
+                      <option value="" selected disabled><b>Filter Kajian</b></option>
                       <?php foreach ($kaji as $v) : ?>
                         <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
                       <?php endforeach ?>

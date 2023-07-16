@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<?= form_open_multipart(md5('proses_simpan')); ?>
+<?= form_open_multipart(); ?>
 <div class="row">
   <div class="container">
     <div class="col-12">
@@ -60,7 +60,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="startdate" class="form-label">TANGGAL MEMO <span class="text-danger">*</span></label>
-                  <input type="text" name="add_tgl_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker"></input>
+                  <input type="text" name="no_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker"></input>
                 </div>
               </div>
             </div>
@@ -68,44 +68,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="enddate" class="form-label">TANGGAL DISPOSISI <span class="text-danger">*</span></label>
-                  <input type="text" name="add_tgl_disposisi" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker"></input>
+                  <input type="text" name="no_memo" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker"></input>
                 </div>
               </div>
             </div>
           </div>
           <div class="d-flex flex-column">
-            <div class="d-flex flex-row">
-              <div class="col-lg-6">
-                <div class="mb-2">
-                  <div class="form-group">
-                    <label for="add_jns_kajian" class="form-label">JENIS KAJIAN <span class="text-danger">*</span></label>
-                    <select name="add_jns_kajian" id="add_jns_kajian" cols="1" rows="3" class="form-control form-control-sm">
-                      <option value="">[ PILIH KAJIAN ]</option>
-                      <?php foreach ($kaji as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
-                      <?php endforeach ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="mb-2">
-                  <div class="form-group">
-                    <label for="add_status" class="form-label">STATUS <span class="text-danger">*</span></label>
-                    <select name="add_status" id="add_status" cols="1" rows="3" class="form-control form-control-sm">
-                      <option value="">[ PILIH STATUS ]</option>
-                      <?php foreach ($prog as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['status']; ?></option>
-                      <?php endforeach ?>
-                    </select>
-                  </div>
+            <div class="col-lg-12">
+              <div class="mb-2">
+                <div class="form-group">
+                  <label for="add_jns_kajian" class="form-label">JENIS KAJIAN <span class="text-danger">*</span></label>
+                  <select name="kajian_resiko" id="add_jns_kajian" cols="1" rows="3" class="form-control form-control-sm">
+                    <option value="">[ PILIH KAJIAN ]</option>
+                    <?php foreach ($kaji as $v) : ?>
+                      <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
               </div>
             </div>
             <div class="col-lg-12">
               <div class="mb-2">
                 <div class="form-group">
-                  <label for="add_kajian_resiko" class="form-label">Follow <span class="text-danger">*</span></label>
+                  <label for="add_kajian_resiko" class="form-label">KAJIAN RESIKO <span class="text-danger">*</span></label>
                   <textarea name="kajian_resiko" id="add_kajian_resiko" cols="1" rows="3" class="form-control form-control-sm" placeholder="Ketik disini..."></textarea>
                 </div>
               </div>
@@ -115,14 +100,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex align-items-center align-middle">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="add_tgl_kelengkapan_memo" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA MEMO</label>
-                <input type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker" placeholder="Pilih Tanggal">
+                <label for="add_kajian_resiko" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA MEMO</label>
+                <input type="text" name="add_kajian_resiko" class="form-control ml-2 form-control-sm datepicker" placeholder="Pilih Tanggal">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="file_memo_unit" class="form-label">MEMO UNIT</label>
-                <input class="form-control form-control-sm" id="file_memo_unit" type="file">
+                <label for="formFileSm" class="form-label">MEMO UNIT</label>
+                <input class="form-control form-control-sm" id="formFileSm" type="file">
               </div>
             </div>
           </div>
