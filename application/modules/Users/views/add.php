@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<?= form_open_multipart(md5('proses_simpan')); ?>
+<?php echo form_open_multipart(md5('proses_simpan')); ?>
 <div class="row">
   <div class="container">
     <div class="col-12">
@@ -63,7 +63,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="startdate" class="form-label">TANGGAL MEMO <span class="text-danger">*</span></label>
-                  <input type="text" value="<?= set_value('add_tgl_memo'); ?>" name="add_tgl_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>"></input>
+                  <input type="text" value="<?= set_value('add_tgl_memo'); ?>" name="add_tgl_memo" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>" autocomplete="off"></input>
                   <div class="invalid-feedback"><?= form_error('add_tgl_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
@@ -72,7 +72,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="mb-2">
                 <div class="form-group">
                   <label for="enddate" class="form-label">TANGGAL DISPOSISI <span class="text-danger">*</span></label>
-                  <input type="text" name="add_tgl_disposisi" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>" value="<?= set_value('add_tgl_disposisi'); ?>"></input>
+                  <input type="text" name="add_tgl_disposisi" placeholder="Tanggal Disposisi" class="form-control form-control-sm datepicker <?= form_error('add_tgl_memo') ? 'is-invalid' : ''; ?>" value="<?= set_value('add_tgl_disposisi'); ?>" autocomplete="off"></input>
                   <div class="invalid-feedback"><?= form_error('add_tgl_disposisi', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>
@@ -124,14 +124,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="add_tgl_kelengkapan_memo" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA MEMO</label>
-                <input value="<?= set_value('add_tgl_kelengkapan_memo'); ?>" type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker <?= form_error('add_tgl_kelengkapan_memo') ? 'is-invalid' : ''; ?>" placeholder="Pilih Tanggal">
+                <input value="<?= set_value('add_tgl_kelengkapan_memo'); ?>" type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker <?= form_error('add_tgl_kelengkapan_memo') ? 'is-invalid' : ''; ?>" placeholder="Pilih Tanggal" autocomplete="off">
                 <div class="invalid-feedback"><?= form_error('add_tgl_kelengkapan_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="file_memo_unit" class="form-label">MEMO UNIT</label>
-                <input class="form-control form-control-sm" id="file_memo_unit" type="file">
+                <input class="form-control form-control-sm" name="file_memo_unit" id="file_memo_unit" type="file">
               </div>
             </div>
           </div>
@@ -182,13 +182,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="add_kajian_resiko" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
-                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal">
+                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="formFileSm" class="form-label">MEMO IRS</label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                <input class="form-control form-control-sm" name="file_memo_irs" id="formFileSm" type="file">
               </div>
             </div>
           </div>
@@ -196,13 +196,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="add_kajian_resiko" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
-                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal">
+                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="mb-3">
                 <label for="formFileSm" class="form-label">MEMO IMPLEMENTASI</label>
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                <input class="form-control form-control-sm" name="file_memo_imp" id="formFileSm" type="file">
               </div>
             </div>
           </div>
@@ -218,7 +218,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
   </div>
 </div>
-<?= form_close(); ?>
+<?php echo form_close(); ?>
 
 <script>
   $(document).ready(function() {

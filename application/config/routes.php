@@ -64,6 +64,7 @@ $route[md5('users')] = 'Users/dashboard';
 $route['request_arsip_table'] = 'Users/call_serverside_arsip';
 $route['add/arsip'] = 'Users/add_arsip';
 $route[md5('proses_simpan')] = 'Users/proses_simpan';
+$route['delete/arsip/(:any)'] = 'Users/delete_arsip/$1';
 
 // END ROUTE USERS
 

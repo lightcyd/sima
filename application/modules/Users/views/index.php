@@ -142,7 +142,6 @@
       theme: "classic"
     });
 
-
     let tgl_awal = $("#startdate").val();
     // Mendefinisikan tabel arsip menggunakan datatabel
     var table1 = $('.tabel_arsip').DataTable({
