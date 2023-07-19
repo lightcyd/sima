@@ -71,12 +71,14 @@ class Users extends CI_Controller
     $this->upload->initialize($config);
 
     $post = $this->input->post();
-    $id_group = substr(enkrip(rand(1, 10000)), 0, 18);
+
+    // generate kode urut dari tabel tb_arsip_file berdasarkan field id_memo
+    $id_group = generate_unique_id('tr_arsip', 'group_file_id');
 
     $this->_validation();
 
     if ($this->form_validation->run() == FALSE) {
-      // Jika validasi form tidak berhasil, jalankan fungsi add_arsip()
+      // Jika validasi form tidak berhasil, panggil add_arsip()
       $this->add_arsip();
     } else {
       // Lakukan upload file menggunakan fungsi upload_file()
@@ -113,10 +115,15 @@ class Users extends CI_Controller
           } else {
             // Menangani kesalahan upload, misalnya file terlalu besar atau format file tidak diizinkan
             $error = $this->upload->display_errors();
-            var_dump($error);
+            $this->session->set_flashdata($error);
+            $this->add_arsip();
             // Tambahkan log atau tindakan lain sesuai kebutuhan
           }
         }
+      } else {
+        $this->db->insert('tb_arsip_file', [
+          'id_group_file' => $id_group
+        ]);
       }
 
       // Menyimpan data pada tabel tb_arsip
@@ -130,15 +137,17 @@ class Users extends CI_Controller
         'tgl_memo' => antixss($post['add_tgl_memo']),
         'tgl_disposisi' => antixss($post['add_tgl_disposisi']),
         'tgl_input' => antixss($post['add_tgl_kelengkapan_memo']),
-        'group_file_id' => $id_group,
-        'file_memo_unit' => $file_memo_unit,
-        'file_memo_irs' => $file_memo_irs,
-        'file_memo_impl' => $file_memo_imp
+        'group_file_id' => antixss($id_group),
+        'file_memo_unit' => antixss($file_memo_unit),
+        'file_memo_irs' => antixss($file_memo_irs),
+        'file_memo_impl' => antixss($file_memo_imp),
+        'tgl_impl' => antixss($post['tgl_implementasi']),
+        'tgl_selesai' => antixss($post['tgl_memoirs']),
       ];
 
       // Simpan data memo ke tabel tb_arsip
       $this->db->insert('tr_arsip', $data_memo);
-
+      $this->session->set_flashdata('success', 'MEMO ARSIP BERHASIL DITAMBAHKAN!');
       redirect('add/arsip');
     }
   }
@@ -155,6 +164,24 @@ class Users extends CI_Controller
     $this->db->delete('tr_arsip', ['group_file_id' => $id]);
     $this->db->delete('tb_arsip_file', ['id_group_file' => $id]);
     redirect(md5('users'));
+  }
+
+  function detail_arsip()
+  {
+    $id = antixss(dekrip($this->uri->segment(2)));
+
+    // DETAILS 
+    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
+    $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
+    $data['pic'] = $this->db->get('ms_pic')->result_array();
+    $data['prog'] = $this->db->get('ms_status')->result_array();
+    $data['kelompok'] = $this->db->get('ms_department')->result_array();
+
+    // DATA
+    $data['arsip'] = $this->db->get_where('tr_arsip', ['group_file_id' => $id])->row();
+    $data['file'] = $this->db->get_where('tb_arsip_file', ['id_group_file' => $id])->result_array();
+
+    $this->templates->load('frontend/fe_users', 'detail', $data);
   }
 
   /**
@@ -218,6 +245,8 @@ class Users extends CI_Controller
     $no = $_POST['start'];
     foreach ($list as $v) {
       $no++;
+      $id_group = enkrip($v->group_id);
+      $id = preg_replace('/[^a-zA-Z0-9,]/', '', $id_group);
       $row = array();
       $row[] = $no;
       $row[] = $v->no_memo;
@@ -231,7 +260,7 @@ class Users extends CI_Controller
       $row[] = !empty($v->tgl_selesai) ? date('d-M-Y', strtotime($v->tgl_selesai)) : '-';
       $row[] = $v->jarak_hari . ' Hari';
       $row[] = '<h6><span class="badge badge-primary"> ' . strtoupper($v->sts) . '</span></h6>';
-      $row[] = '<div class="btn-group"><button type="button" class="btn btn-secondary btn-xs" onclick="detail(' . $v->id . ')"><i class="fa fa-eye"></i></button><a type="button" class="btn btn-danger ml-1 btn-xs" href="' . base_url('delete/arsip/' . $v->group_id) . '" ><i class="fa fa-trash"></i></a></div>';
+      $row[] = '<div class="btn-group"><a type="button" class="btn btn-secondary btn-xs" href="' . base_url('detail/' . $id) . '"><i class="fa fa-eye"></i></a><a type="button" class="btn btn-danger ml-1 btn-xs" href="' . base_url('delete/arsip/' . $v->group_id) . '" ><i class="fa fa-trash"></i></a></div>';
       $data[] = $row;
     }
 

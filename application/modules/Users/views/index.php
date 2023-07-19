@@ -19,13 +19,13 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input type="text" id="startdate" placeholder="Tanggal Awal" name="tgl_awal" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm" autocomplete="off">
+                    <input type="text" id="startdate" placeholder="Tanggal Awal" name="tgl_awal" value="" class="form-control form-control-sm tgl_awal" autocomplete="off">
                   </div>
                   <div class="input-group ml-2">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input type="text" id="enddate" placeholder="Tanggal Akhir" name="tgl_akhir" value="<?= date('Y-m-d'); ?>" class="form-control form-control-sm " autocomplete="off"><i class="fas fa-calender"></i>
+                    <input type="text" id="enddate" placeholder="Tanggal Akhir" name="tgl_akhir" value="" class="form-control form-control-sm tgl_akhir" autocomplete="off"><i class="fas fa-calender"></i>
                   </div>
                 </div>
               </div>
@@ -38,9 +38,9 @@
                     <select name="devisi" id="devisi" class="form-control form-control-sm">
                       <option value="" selected disabled><b>Filter Divisi</b></option>
                       <?php foreach ($devisi as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['divisi']; ?></option>
+                        <option value="<?= $v['divisi']; ?>"><?= $v['divisi']; ?></option>
                       <?php endforeach ?>
-                      <option value="all">ALL</option>
+                      <option value="">ALL</option>
                     </select>
                   </div>
                 </div>
@@ -52,9 +52,9 @@
                     <select name="pic" id="pic" class="form-control form-control-sm">
                       <option value="" selected disabled><b>Filter PIC</b></option>
                       <?php foreach ($pic as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['nama_pic']; ?></option>
+                        <option value="<?= $v['nama_pic']; ?>"><?= $v['nama_pic']; ?></option>
                       <?php endforeach ?>
-                      <option value="all">ALL</option>
+                      <option value="">ALL</option>
                     </select>
                   </div>
                 </div>
@@ -66,9 +66,9 @@
                     <select name="kajian" id="kajian" class="form-control form-control-sm">
                       <option value="" selected disabled><b>Filter Kajian</b></option>
                       <?php foreach ($kaji as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['jenis_kajian']; ?></option>
+                        <option value="<?= $v['jenis_kajian']; ?>"><?= $v['jenis_kajian']; ?></option>
                       <?php endforeach ?>
-                      <option value="all">ALL</option>
+                      <option value="">ALL</option>
                     </select>
                   </div>
                 </div>
@@ -78,10 +78,11 @@
                   <label>Progress</label>
                   <div class="form-group">
                     <select name="progress" id="progress" class="form-control form-control-sm">
+                      <option value="" selected disabled><b>Filter Progress</b></option>
                       <?php foreach ($prog as $v) : ?>
-                        <option value="<?= $v['id']; ?>"><?= $v['status']; ?></option>
+                        <option value="<?= $v['status']; ?>"><?= $v['status']; ?></option>
                       <?php endforeach ?>
-                      <option value="all">ALL</option>
+                      <option value="">ALL</option>
                     </select>
                   </div>
                 </div>
@@ -89,7 +90,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <button class="btn btn-primary btn-sm"> Filter</button>
+                <button class="btn btn-primary btn-sm filter"> Filter</button>
               </div>
             </div>
           </div>
@@ -142,25 +143,32 @@
       theme: "classic"
     });
 
-    let tgl_awal = $("#startdate").val();
+    // href="' . base_url('delete/arsip/' . $v->group_id) . '"
+
+    // var tgl_awal = $(".tgl_awal").val();
+    // var tgl_akhir = $(".tgl_akhir").val();
+    // var devisi = $("#devisi").val();
+    // var pic = $("#pic").val();
+    // var kajian = $("#kajian").val();
+    // var progress = $("#progress").val();
     // Mendefinisikan tabel arsip menggunakan datatabel
     var table1 = $('.tabel_arsip').DataTable({
       "processing": true,
       "serverSide": true,
       "responsive": false,
       "destroy": true,
-      "responsive": false,
-      // "columnDefs": [{
-      //   "targets": [0, 2, 3, 4],
-      //   "orderable": false
-      // }],
-      "select": true,
+      "select": false,
       "ajax": {
         "url": "<?php echo site_url('request_arsip_table'); ?>",
         "type": "POST",
-        // "data": function(data) {
-        //   data.tgl = tgl_awal;
-        // },
+        "data": function(data) {
+          data.tgl_awal = $(".tgl_awal").val();
+          data.tgl_akhir = $(".tgl_akhir").val();
+          data.divisi = $("#devisi").val();
+          data.pic = $("#pic").val();
+          data.kajian = $("#kajian").val();
+          data.progress = $("#progress").val();
+        },
         "error": function(jqXHR, textStatus, errorThrown) {
           try {
             // Coba untuk mengurai pesan kesalahan dalam respons JSON jika ada
@@ -194,6 +202,12 @@
           request = null; // Setel variabel request menjadi null setelah permintaan selesai
         }
       }
+    });
+
+    // Mengikuti perubahan tanggal pada elemen dengan ID "startdate"
+    $(".filter").on("click", function(e) {
+      e.preventDefault();
+      table1.ajax.reload();
     });
   });
 </script>
