@@ -14,37 +14,94 @@ class Serverside_arsip extends CI_Model
    * Retrieves the query for the datatables in the PHP function.
    *
    * @return void
-   * This code defines a private function in a PHP class that retrieves a query for datatables. It iterates over an array of columns to build a search query based on user input. It also handles sorting the results based on user-defined order.
    */
   private function _get_datatables_query()
   {
-    // $bln = date('m');
-    // $this->db->where('MONTH(tgl)', $bln)->order_by('tgl', 'desc')->from($this->table);
+    // Retrieve the values from the input post request
+    $input = $this->input->post();
+    $tgl_awal = $input['tgl_awal'];
+    $tgl_akhir = $input['tgl_akhir'];
+    $divisi = $input['divisi'];
+    $pic = $input['pic'];
+    $kajian = $input['kajian'];
+    $progress = $input['progress'];
+
+    // Set the main table for the query
     $this->db->from($this->table);
-    $i = 0;
-    foreach ($this->column_search as $item) // loop column 
-    {
-      if ($_POST['search']['value']) // if datatable send POST for search
-      {
-        if ($i === 0) // first loop
-        {
-          $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-          $this->db->like($item, $_POST['search']['value']);
-        } else {
-          $this->db->or_like($item, $_POST['search']['value']);
-        }
-        if (count($this->column_search) - 1 == $i) //last loop
-          $this->db->group_end(); //close bracket
-      }
-      $i++;
+
+    // Apply filters based on the values from the input post request
+    $filterApplied = false; // Variable to track if any filter has been applied
+
+    if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+      $this->db->where('DATE(tgl_input) >=', $tgl_awal)
+        ->where('DATE(tgl_input) <=', $tgl_akhir);
+      $filterApplied = true;
     }
 
-    if (isset($_POST['order'])) // here order processing
-    {
-      $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+    if (!empty($divisi)) {
+      $this->db->where('divisi', $divisi);
+      $filterApplied = true;
+    }
+
+    if (!empty($pic)) {
+      $this->db->where('nama_pic', $pic);
+      $filterApplied = true;
+    }
+
+    if (!empty($kajian)) {
+      $this->db->where('jenis_kajian', $kajian);
+      $filterApplied = true;
+    }
+
+    if (!empty($progress)) {
+      $this->db->where('sts', $progress);
+      $filterApplied = true;
+    }
+
+    // If no filters applied, retrieve all data
+    if (!$filterApplied) {
+      // Perform default action when no filters are applied
+    } else {
+      // // If both "devisi" and "progress" filters are present, combine them with an AND condition
+      // if (!empty($divisi) && !empty($progress)) {
+      //   $this->db->where('divisi', $divisi)
+      //     ->where('sts', $progress);
+      // }
+      // Combine all the conditions with an AND condition
+      if (!empty($tgl_awal) && !empty($tgl_akhir) && !empty($divisi) && !empty($pic) && !empty($kajian) && !empty($progress)) {
+        $this->db->where('divisi', $divisi)
+          ->where('nama_pic', $pic)
+          ->where('jenis_kajian', $kajian)
+          ->where('sts', $progress);
+      }
+    }
+
+    // Apply search filters based on the values from the input post request
+    $searchValue = $_POST['search']['value'];
+    if ($searchValue) {
+      $this->db->group_start();
+      foreach ($this->column_search as $i => $item) {
+        if ($i !== 0) {
+          $this->db->or_like($item, $searchValue);
+        } else {
+          $this->db->like($item, $searchValue);
+        }
+        if (count($this->column_search) - 1 === $i) {
+          $this->db->group_end();
+        }
+      }
+    }
+
+    // Apply ordering based on the values from the input post request
+    if (isset($_POST['order'])) {
+      $orderColumn = $_POST['order']['0']['column'];
+      $orderDir = $_POST['order']['0']['dir'];
+      $this->db->order_by($this->column_order[$orderColumn], $orderDir);
     } else if (isset($this->order)) {
       $order = $this->order;
-      $this->db->order_by(key($order), $order[key($order)]);
+      $orderColumn = key($order);
+      $orderDir = $order[$orderColumn];
+      $this->db->order_by($orderColumn, $orderDir);
     }
   }
 
@@ -52,14 +109,22 @@ class Serverside_arsip extends CI_Model
    * Retrieves data from the database.
    *
    * @return array The retrieved data.
-   * This code snippet is a PHP function that retrieves data from a database. It uses the CodeIgniter framework's database library to execute a query and return the result as an array. The function takes into account any pagination parameters passed via the $_POST array to limit the number of results returned.
    */
   public function get_data()
   {
+    // Execute the query to retrieve data from the database
     $this->_get_datatables_query();
-    if ($_POST['length'] != -1)
+
+    // Check if pagination parameters are passed via the $_POST array
+    if ($_POST['length'] != -1) {
+      // Limit the number of results returned based on the pagination parameters
       $this->db->limit($_POST['length'], $_POST['start']);
+    }
+
+    // Get the result of the executed query
     $query = $this->db->get();
+
+    // Return the retrieved data as an array
     return $query->result();
   }
 
@@ -71,8 +136,13 @@ class Serverside_arsip extends CI_Model
    */
   public function count_filtered()
   {
+    // Retrieve the query object with applied filters
     $this->_get_datatables_query();
+
+    // Execute the query and get the result set
     $query = $this->db->get();
+
+    // Return the number of rows in the result set
     return $query->num_rows();
   }
 

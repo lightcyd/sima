@@ -95,7 +95,7 @@
       </div>
     </nav>
     <!-- /.navbar -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="min-height: 1558.75px;">
       <div class="content-header">
         <div class="container">
           <div class="col-lg-12">
@@ -118,6 +118,12 @@
         </div>
       </section>
     </div>
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+
+      </div>
+      <strong>Copyright © 2023- <?= date('Y'); ?> <a href="<?= base_url(''); ?>">SIMA-APPS</a>.</strong> All rights reserved.
+    </footer>
     <!-- /.control-sidebar -->
   </div>
   <script>

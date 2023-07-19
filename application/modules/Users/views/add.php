@@ -5,6 +5,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <div class="row">
   <div class="container">
     <div class="col-12">
+      <?php if ($this->session->flashdata('success')) :  ?>
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+          <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+          <strong><?= $this->session->flashdata('success'); ?></strong>
+        </div>
+      <?php endif; ?>
       <!-- Default box -->
       <!-- Card Filter -->
       <div class="card">
@@ -181,8 +187,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex flex-row">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="add_kajian_resiko" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
-                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
+                <label for="tgl_memoirs" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
+                <input type="text" id="tgl_memoirs" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>
             <div class="col-lg-6">
@@ -195,8 +201,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex flex-row">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="add_kajian_resiko" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
-                <input type="text" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
+                <label for="tgl_implementasi" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
+                <input type="text" name="tgl_implementasi" id="tgl_implementasi" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>
             <div class="col-lg-6">
@@ -211,10 +217,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
   </div>
 </div>
-<div class="row mb-5">
+<div class="row">
   <div class="container">
-    <div class="col-lg-12">
-      <button class="btn btn-success btn-sm btn-block">SUBMIT</button>
+    <div class="mb-5">
+      <div class="col-lg-12">
+        <button class="btn btn-success btn-sm btn-block">SUBMIT</button>
+      </div>
     </div>
   </div>
 </div>
@@ -226,60 +234,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $(".progress").select2({
       theme: "classic"
     });
-
-
-    let tgl_awal = $("#startdate").val();
-    // Mendefinisikan tabel arsip menggunakan datatabel
-    var table1 = $('.tabel_arsip').DataTable({
-      "processing": true,
-      "serverSide": true,
-      "responsive": false,
-      "destroy": true,
-      "responsive": false,
-      // "columnDefs": [{
-      //   "targets": [0, 2, 3, 4],
-      //   "orderable": false
-      // }],
-      "select": true,
-      "ajax": {
-        "url": "<?php echo site_url('request_arsip_table'); ?>",
-        "type": "POST",
-        // "data": function(data) {
-        //   data.tgl = tgl_awal;
-        // },
-        "error": function(jqXHR, textStatus, errorThrown) {
-          try {
-            // Coba untuk mengurai pesan kesalahan dalam respons JSON jika ada
-            var errorResponse = JSON.parse(jqXHR.responseText);
-            console.log('Kesalahan: ' + errorResponse.message);
-            // Tampilkan pesan kesalahan menggunakan Swal
-            Swal.fire({
-              icon: 'error',
-              title: 'Terjadi Kesalahan Jaringan',
-              toast: true,
-              text: 'Pesan kesalahan: ' + errorResponse.message,
-              timer: 1000
-            });
-          } catch (e) {
-            // Jika gagal mengurai respons JSON, tangkap kesalahan dan ambil tindakan yang sesuai
-            console.log('Kesalahan dalam menangani respons: ' + e);
-            // Tampilkan pesan kesalahan menggunakan Swal
-            Swal.fire({
-              icon: 'error',
-              title: 'Terjadi Kesalahan Jaringan',
-              toast: true,
-              text: 'Terjadi kesalahan dalam menangani respons.',
-              timer: 1000
-            });
-          }
-        },
-        "beforeSend": function(jqXHR) {
-          request = jqXHR; // Simpan objek jqXHR dalam variabel request
-        },
-        "complete": function() {
-          request = null; // Setel variabel request menjadi null setelah permintaan selesai
-        }
-      }
-    });
+    setInterval(() => {
+      $(".alert").alert('close');
+    }, 3000);
   });
 </script>
