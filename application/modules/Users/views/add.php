@@ -118,8 +118,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-12">
               <div class="mb-2">
                 <div class="form-group">
-                  <label for="add_kajian_resiko" class="form-label">Follow <span class="text-danger">*</span></label>
+                  <label for="add_kajian_resiko" class="form-label">KAJIAN RESIKO <span class="text-danger">*</span></label>
                   <textarea name="add_kajian_resiko" id="add_kajian_resiko" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_kajian_resiko') ? 'is-invalid' : ''; ?>" placeholder="Ketik disini..."><?= set_value('add_kajian_resiko'); ?></textarea>
+                  <div class="invalid-feedback"><?= form_error('add_kajian_resiko', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="mb-2">
+                <div class="form-group">
+                  <label for="add_follow_up" class="form-label">Follow Up<span class="text-danger">*</span></label>
+                  <textarea name="add_follow_up" id="add_follow_up" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_follow_up') ? 'is-invalid' : ''; ?>" placeholder="Ketik disini..."><?= set_value('add_follow_up'); ?></textarea>
                   <div class="invalid-feedback"><?= form_error('add_kajian_resiko', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
               </div>

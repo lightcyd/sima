@@ -34,8 +34,8 @@ class Auth extends CI_Controller
         redirect();
       } else {
         $data = [
-          'nama' => $pecah->nama,
-          'username' => $pecah->username,
+          'nama' => $pecah->nama_pic,
+          'username' => $pecah->nama_pic,
           'role' => $pecah->role,
           'logged_in' => TRUE
         ];

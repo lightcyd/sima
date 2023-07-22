@@ -134,6 +134,7 @@ class Users extends CI_Controller
         'pic' => antixss($post['add_pic']),
         'status' => antixss($post['add_status']),
         'kajian_resiko' => antixss($post['add_kajian_resiko']),
+        'follow_up' => antixss($post['add_follow_up']),
         'tgl_memo' => antixss($post['add_tgl_memo']),
         'tgl_disposisi' => antixss($post['add_tgl_disposisi']),
         'tgl_input' => antixss($post['add_tgl_kelengkapan_memo']),
@@ -183,6 +184,111 @@ class Users extends CI_Controller
 
     $this->templates->load('frontend/fe_users', 'detail', $data);
   }
+
+  function proses_update()
+  {
+
+    // BUG EDIT REPLACE FILE
+    // Konfigurasi upload
+    $config = [
+      'upload_path' => './Uploads/memo',
+      'allowed_types' => 'gif|jpg|png|pdf|doc|docx',
+      'overwrite' => true,
+      'max_size' => 20048, // Ukuran maksimum file dalam kilobita (KB)
+      'encrypt_name' => true // Mengenkripsi nama file
+    ];
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    $post = $this->input->post();
+
+    // Get the id_group_file from the form data
+    // $id_group = generate_unique_id('tr_arsip', 'group_file_id'); // Assuming 'update_id_group' is the name of the input field that holds the id_group value.
+    $id_group = antixss($post['update_id_group']);
+
+    $new_id = generate_unique_id('tr_arsip', 'group_file_id');
+
+
+    // Lakukan update file menggunakan fungsi upload_file()
+    $file_memo_unit = $this->upload_file('file_memo_unit', $this->upload);
+    $file_memo_irs = $this->upload_file('file_memo_irs', $this->upload);
+    $file_memo_imp = $this->upload_file('file_memo_imp', $this->upload);
+
+    // Update data memo di tabel tb_arsip
+    $data_memo = [
+      'no_memo' => antixss($post['update_no_memo']),
+      'jenis_kajian' => antixss($post['update_jns_kajian']),
+      'divisi' => antixss($post['update_divisi']),
+      'pic' => antixss($post['update_pic']),
+      'status' => antixss($post['update_status']),
+      'kajian_resiko' => antixss($post['update_kajian_resiko']),
+      'follow_up' => antixss($post['update_follow_up']),
+      'tgl_memo' => antixss($post['update_tgl_memo']),
+      'tgl_disposisi' => antixss($post['update_tgl_disposisi']),
+      'tgl_input' => antixss($post['update_tgl_kelengkapan_memo']),
+      'tgl_impl' => antixss($post['update_tgl_implementasi']),
+      'group_file_id' => $new_id,
+      'tgl_selesai' => antixss($post['update_tgl_memoirs']),
+    ];
+
+    // Only update file fields if there are new files uploaded
+    if (!empty($_FILES['file_memo_unit']['name'])) {
+      $data_memo['file_memo_unit'] = antixss($file_memo_unit);
+    }
+
+    if (!empty($_FILES['file_memo_irs']['name'])) {
+      $data_memo['file_memo_irs'] = antixss($file_memo_irs);
+    }
+
+    if (!empty($_FILES['file_memo_imp']['name'])) {
+      $data_memo['file_memo_impl'] = antixss($file_memo_imp);
+    }
+
+    // Update data memo di tabel tr_arsip
+    $this->db->where('group_file_id', $id_group);
+    $this->db->update('tr_arsip', $data_memo);
+
+    if (!empty($_FILES['memo_file_update']['name'])) {
+      $departemen_ids = $this->input->post('id_departemen_file'); // Mengambil array departemen_id dari inputan
+
+      // Melakukan upload untuk setiap file yang diunggah
+      foreach ($_FILES['memo_file_update']['name'] as $key => $filename) {
+        $_FILES['userfile']['name']     = $_FILES['memo_file_update']['name'][$key];
+        $_FILES['userfile']['type']     = $_FILES['memo_file_update']['type'][$key];
+        $_FILES['userfile']['tmp_name'] = $_FILES['memo_file_update']['tmp_name'][$key];
+        $_FILES['userfile']['error']    = $_FILES['memo_file_update']['error'][$key];
+        $_FILES['userfile']['size']     = $_FILES['memo_file_update']['size'][$key];
+
+        if ($this->upload->do_upload('userfile')) {
+          $data = $this->upload->data();
+
+          // Simpan informasi file ke database
+          $file_path = $data['file_name']; // Mendapatkan nama file yang diunggah
+
+          // Mendapatkan departemen_id sesuai dengan indeks saat ini
+          $departemen_id = $departemen_ids[$key];
+
+          // Simpan informasi file ke dalam tabel
+          $this->db->insert('tb_arsip_file', [
+            'id_group_file' => $new_id,
+            'departmen_id' => $departemen_id,
+            'file_memo' => $file_path
+          ]);
+        } else {
+          // Menangani kesalahan upload, misalnya file terlalu besar atau format file tidak diizinkan
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata($error);
+          $this->detail_arsip();
+          // Tambahkan log atau tindakan lain sesuai kebutuhan
+        }
+      }
+    }
+
+    $this->session->set_flashdata('success', 'MEMO ARSIP BERHASIL DIUPDATE!');
+    redirect(base_url()); // Redirect back to the edit page after update
+  }
+
 
   /**
    * Uploads a file.
@@ -250,13 +356,13 @@ class Users extends CI_Controller
       $row = array();
       $row[] = $no;
       $row[] = $v->no_memo;
-      $row[] = $v->nama_pic;
       $row[] = $v->kajian_resiko;
       $row[] = $v->divisi;
-      $row[] = $v->jenis_kajian;
-      $row[] = !empty($v->tgl_input) ? date('d-M-Y', strtotime($v->tgl_input)) : '-';
-      $row[] = !empty($v->tgl_disposisi) ? date('d-M-Y', strtotime($v->tgl_disposisi)) : '-';
       $row[] = !empty($v->tgl_memo) ? date('d-M-Y', strtotime($v->tgl_memo)) : '-';
+      $row[] = !empty($v->tgl_disposisi) ? date('d-M-Y', strtotime($v->tgl_disposisi)) : '-';
+      $row[] = $v->jenis_kajian;
+      $row[] = $v->nama_pic;
+      $row[] = !empty($v->tgl_input) ? date('d-M-Y', strtotime($v->tgl_input)) : '-';
       $row[] = !empty($v->tgl_selesai) ? date('d-M-Y', strtotime($v->tgl_selesai)) : '-';
       $row[] = $v->jarak_hari . ' Hari';
       $row[] = '<h6><span class="badge badge-primary"> ' . strtoupper($v->sts) . '</span></h6>';

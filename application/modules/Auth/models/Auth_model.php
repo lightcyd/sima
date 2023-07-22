@@ -12,9 +12,9 @@ class Auth_model extends CI_Model
   function setLogin($username, $password)
   {
     return $this->db->select('*')
-      ->from('user')
-      ->where('username', $username)
-      ->where('password', md5($password))
+      ->from('USER a')
+      ->join('ms_pic b', 'a.npp = b.npp_pic', 'LEFT')
+      ->where(array('a.npp' => $username, 'password' => md5($password)))
       ->get();
   }
 
@@ -26,9 +26,9 @@ class Auth_model extends CI_Model
    */
   function username_search($username)
   {
-    $query = $this->db->get_where('user', ['username' => $username]);
+    $query = $this->db->get_where('user', ['npp' => $username]);
     $row = $query->row();
-    return $row ? $row->username : false;
+    return $row ? $row->npp : false;
   }
 
   function log_login($username = null)

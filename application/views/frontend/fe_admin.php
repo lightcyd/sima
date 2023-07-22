@@ -17,21 +17,19 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Theme Adminlte style -->
 	<link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
-
-	<!-- Google Font: Source Sans Pro -->
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet">
 
 	<!-- Datatables -->
-	<link rel="stylesheet" href="<?= base_url() ?>assets/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>buttons.dataTables.min.css">
+	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>dataTables.min.css">
 	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>select.dataTables.min.css">
 	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>sweetalert2.min.css">
 	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>select2.min.css" />
 	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>responsive.dataTables.min.css" />
-
+	<!-- dateRangePicker -->
+	<link rel="stylesheet" href="<?= base_url('assets/css/'); ?>jquery-ui.min.css">
 
 </head>
 
@@ -49,9 +47,12 @@
 	<!-- AdminLTE App -->
 	<script type="text/javascript" src="<?= base_url('assets/dist/js/') ?>adminlte.min.js"></script>
 
+	<!-- DateRangePicker -->
+	<script type="text/javascript" src="<?= base_url('assets/js/') ?>jquery-ui.min.js"></script>
+
+
 	<!-- Datatables -->
 	<script type="text/javascript" src="<?= base_url('assets/datatable/') ?>jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="<?= base_url('assets/datatable/') ?>dataTables.bootstrap5.min.js"></script>
 	<script type="text/javascript" src="<?= base_url('assets/datatable/') ?>dataTables.buttons.min.js"></script>
 	<script type="text/javascript" src="<?= base_url('assets/datatable/') ?>jszip.min.js"></script>
 	<script type="text/javascript" src="<?= base_url('assets/datatable/') ?>buttons.html5.min.js"></script>
@@ -118,41 +119,24 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Top Navigation</p>
+									<a href="<?= base_url('master_pic'); ?>" class="nav-link">
+										<i class="fas fa-users-cog nav-icon"></i>
+										<p>MASTER PIC</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="../layout/boxed.html" class="nav-link">
+									<a href="<?= base_url('master_divisi'); ?>" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>Boxed</p>
+										<p>MASTER DIVISI & DEPARTMENT</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="../layout/fixed-sidebar.html" class="nav-link">
+									<a href="<?= base_url('master_kajian'); ?>" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>Fixed Sidebar</p>
+										<p>MASTER KAJIAN</p>
 									</a>
 								</li>
-								<li class="nav-item">
-									<a href="../layout/fixed-topnav.html" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Fixed Navbar</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="../layout/fixed-footer.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Fixed Footer</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="../layout/collapsed-sidebar.html" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Collapsed Sidebar</p>
-									</a>
-								</li>
+
 							</ul>
 						</li>
 
@@ -164,30 +148,63 @@
 		</aside>
 
 		<div class="content-wrapper">
-			<div class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1 class="m-0">Dashboard</h1>
-						</div>
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">Dashboard v1</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-			</div>
-			<section class="content">
-				<div class="container-fluid">
-					<?= $content; ?>
-				</div>
-			</section>
+			<?= $content; ?>
+
 		</div>
 		<!-- /.control-sidebar -->
 	</div>
+	<script>
+		$(document).ready(function() {
+			$(".datepicker").datepicker({
+				showWeek: true,
+				firstDay: 1,
+				changeMonth: true,
+				changeYear: true,
+				dateFormat: 'yy-mm-dd',
+				showButtonPanel: true,
+				showAnim: 'drop'
+			});
+		});
+	</script>
 	<!-- ./wrapper -->
+	<!-- DEFAULT TEMPLATE FOR DATATABELS SETTINGS -->
+	<script type="text/javascript">
+		$.extend($.fn.dataTable.defaults, {
+			dom: 'Bfrtip',
+			"aLengthMenu": [
+				[10, 50, 100, 500, -1],
+				[10, 50, 100, 500, 'ALL']
+			],
+			"language": {
+				zeroRecords: "Maaf data tidak ditemukan",
+				info: "<b class='ml-1 text-muted opacity-50'>_START_ - _END_ dari _TOTAL_ Data</b>",
+				infoEmpty: "0 sampai 0 dari 0 data",
+				infoFiltered: "<b class='text-muted opacity-50'>(Disaring dari _MAX_ Total Data)</b>",
+				searchPlaceholder: 'Cari disini',
+				search: '',
+				thousands: '.'
+			},
+			buttons: ['pageLength', {
+					extend: 'print',
+					messageTop: 'Print by <?= $this->session->userdata("nama") ?> at <?= date("d/m/Y H:i:s") ?>',
+					customize: function(win) {
+						$(win.document.body)
+							.css('font-size', '10pt')
+						$(win.document.body).find('table')
+							.addClass('compact')
+							.css('font-size', 'inherit');
+					}
+				},
+				'excel',
+				'copy',
+				'colvis'
+			],
+			select: true,
+			responsive: true,
+			scrollY: '100vh',
+			scrollCollapse: true,
+		});
+	</script>
 </body>
 
 </html>
