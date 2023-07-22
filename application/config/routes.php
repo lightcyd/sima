@@ -71,9 +71,12 @@ $route['delete_pic'] = 'Admin/delete_pic';
 // CRUD DIVIS
 $route['add/divisi'] = 'Admin/add_divisi';
 $route['prosess'] = 'Admin/proses'; #proses add divisi dan add departement
+$route['delete_divisi'] = 'Admin/delete_divisi';
+$route['detail/divisi/(:any)'] = 'Admin/detail_divisi/$1';
 
 // CRUD DEPARTMENT
 $route['add/department'] = 'Admin/add_department';
+$route['delete_department'] = 'Admin/delete_department';
 
 // Dashboard Users
 $route[md5('users')] = 'Users/dashboard';

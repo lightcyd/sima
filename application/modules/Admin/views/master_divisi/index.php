@@ -40,8 +40,8 @@
                     <td><?= $v['divisi'] ?></td>
                     <td>
                       <div class="btn-group">
-                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapuspic"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
+                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapus_divisi"><i class="fas fa-trash"></i></button>
+                        <a href="<?= base_url('detail/divisi/' . $v['id']); ?>" class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -76,7 +76,7 @@
                     <td><?= $v['department'] ?></td>
                     <td>
                       <div class="btn-group">
-                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapuspic"><i class="fas fa-trash"></i></button>
+                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapus_dept"><i class="fas fa-trash"></i></button>
                         <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
                       </div>
                     </td>
@@ -100,10 +100,9 @@
       theme: "classic"
     });
 
-    $(".hapuspic").click(function(e) {
+    $(".hapus_divisi").click(function(e) {
       e.preventDefault();
       var id = $(this).val();
-
       Swal.fire({
         title: 'Do you want to delete?',
         showCancelButton: true,
@@ -113,7 +112,7 @@
         if (result.isConfirmed) {
           $.ajax({
             type: "post",
-            url: "<?= base_url('delete_pic') ?>",
+            url: "<?= base_url('delete_divisi') ?>",
             data: {
               id: id
             },
@@ -127,7 +126,34 @@
           Swal.fire('Changes are not saved', '', 'info')
         }
       })
+    });
 
+    $(".hapus_dept").click(function(e) {
+      e.preventDefault();
+      var id = $(this).val();
+      Swal.fire({
+        title: 'Do you want to delete?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes!',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "post",
+            url: "<?= base_url('delete_department') ?>",
+            data: {
+              id: id
+            },
+            dataType: "json",
+            success: function(response) {
+              Swal.fire('Saved!', '', 'success')
+              location.reload();
+            }
+          });
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
     });
 
     $('.tabel_pic').DataTable();

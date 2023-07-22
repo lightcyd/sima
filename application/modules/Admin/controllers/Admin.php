@@ -70,6 +70,39 @@ class Admin extends CI_Controller
       show_404();
     }
   }
+  function delete_divisi()
+  {
+    if ($this->input->is_ajax_request()) {
+      $post = $this->input->post();
+      $id = antixss($post['id']);
+
+      $this->db->delete('ms_divisi', ['id' => $id]);
+      $data = array(
+        'status' => 1,
+        'msg' => 'Divisi Berhasil Di Hapus!'
+      );
+      echo json_encode($data);
+    } else {
+      show_404();
+    }
+  }
+  function delete_department()
+  {
+    if ($this->input->is_ajax_request()) {
+      $post = $this->input->post();
+      $id = antixss($post['id']);
+
+      $this->db->delete('ms_department', ['id' => $id]);
+
+      $data = array(
+        'status' => 1,
+        'msg' => 'Department Berhasil Di Hapus'
+      );
+      echo json_encode($data);
+    } else {
+      show_404();
+    }
+  }
 
   function index_divisi()
   {
@@ -81,6 +114,13 @@ class Admin extends CI_Controller
   function add_divisi()
   {
     $this->templates->load('frontend/fe_admin', 'master_divisi/add');
+  }
+
+  function detail_divisi()
+  {
+    $id = $this->uri->segment(3);
+    $data['divisi'] = $this->db->get_where('ms_divisi', ['id' => $id])->row_array();
+    $this->templates->load('frontend/fe_admin', 'master_divisi/update', $data);
   }
 
   function add_department()

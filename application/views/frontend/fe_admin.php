@@ -114,7 +114,7 @@
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-copy"></i>
+								<i class="nav-icon fas fa-cogs"></i>
 								<p>Master<i class="fas fa-angle-left right"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -126,7 +126,7 @@
 								</li>
 								<li class="nav-item">
 									<a href="<?= base_url('master_divisi'); ?>" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
+										<i class="fas fa-cog nav-icon"></i>
 										<p>MASTER DIVISI & DEPARTMENT</p>
 									</a>
 								</li>
