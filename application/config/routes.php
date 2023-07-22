@@ -58,6 +58,22 @@ $route['logout'] = 'Auth/logout';
 
 // Dashboard admin
 $route[md5('admin')] = 'Admin';
+$route['master_divisi'] = 'Admin/index_divisi';
+$route['master_kajian'] = 'Admin/index_kajian';
+$route['master_department'] = 'Admin/index_department';
+
+// CRUD PIC
+$route['master_pic'] = 'Admin/index_pic';
+$route['add/pic'] = 'Admin/add_pic';
+$route['proses_add_pic'] = 'Admin/proses_add_pic';
+$route['delete_pic'] = 'Admin/delete_pic';
+
+// CRUD DIVIS
+$route['add/divisi'] = 'Admin/add_divisi';
+$route['prosess'] = 'Admin/proses'; #proses add divisi dan add departement
+
+// CRUD DEPARTMENT
+$route['add/department'] = 'Admin/add_department';
 
 // Dashboard Users
 $route[md5('users')] = 'Users/dashboard';

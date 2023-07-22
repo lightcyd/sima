@@ -22,7 +22,7 @@
           <!-- Card Filter -->
           <div class="card">
             <div class="card-header bg-primary">
-              <h5 class="card-title font-weight-bold">TAMBAH DATA DIVISI</h5>
+              <h5 class="card-title font-weight-bold">TAMBAH DATA DEPARTMENT</h5>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                   <i class="fas fa-minus"></i>
@@ -37,12 +37,12 @@
                 <div class="col-lg-6">
                   <div class="mb-2">
                     <div class="form-group">
-                      <label for="add_npp" class="form-label">DIVISI <span class="text-danger">*</span></label>
-                      <input type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm <?= form_error('add_divisi') ? 'is-invalid' : ''; ?>" placeholder="Nama divisi" aria-describedby="add_divisi" value="<?= set_value('add_divisi'); ?>"></input>
-                      <div class="invalid-feedback"><?= form_error('add_divisi', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
+                      <label for="add_department" class="form-label">DEPARTMENT <span class="text-danger">*</span></label>
+                      <input type="text" name="add_department" id="add_department" class="form-control form-control-sm <?= form_error('add_department') ? 'is-invalid' : ''; ?>" placeholder="Nama divisi" aria-describedby="add_department" value="<?= set_value('add_department'); ?>"></input>
+                      <div class="invalid-feedback"><?= form_error('add_department', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                     <button class="btn btn-sm btn-secondary back"><i class="fas fa-arrow-alt-circle-left"></i> KEMBALI</button>
-                    <button type="submit" name="submit_divisi" class="btn btn-sm btn-success"><i class="fas fa-save"></i> SIMPAN</button>
+                    <button type="submit" name="submit_department" class="btn btn-sm btn-success"><i class="fas fa-save"></i> SIMPAN</button>
                   </div>
                 </div>
               </div>

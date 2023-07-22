@@ -187,6 +187,8 @@ class Users extends CI_Controller
 
   function proses_update()
   {
+
+    // BUG EDIT REPLACE FILE
     // Konfigurasi upload
     $config = [
       'upload_path' => './Uploads/memo',
@@ -204,10 +206,9 @@ class Users extends CI_Controller
     // Get the id_group_file from the form data
     // $id_group = generate_unique_id('tr_arsip', 'group_file_id'); // Assuming 'update_id_group' is the name of the input field that holds the id_group value.
     $id_group = antixss($post['update_id_group']);
-    $asd = enkrip($id_group);
-    $id = preg_replace('/[^a-zA-Z0-9,]/', '', $asd);
+
     $new_id = generate_unique_id('tr_arsip', 'group_file_id');
-    $this->_validation();
+
 
     // Lakukan update file menggunakan fungsi upload_file()
     $file_memo_unit = $this->upload_file('file_memo_unit', $this->upload);
@@ -285,7 +286,7 @@ class Users extends CI_Controller
     }
 
     $this->session->set_flashdata('success', 'MEMO ARSIP BERHASIL DIUPDATE!');
-    redirect('detail/' . $id); // Redirect back to the edit page after update
+    redirect(base_url()); // Redirect back to the edit page after update
   }
 
 

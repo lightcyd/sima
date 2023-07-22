@@ -110,6 +110,14 @@
           </div>
         </div>
         <div class="card-body">
+          <div class="mb-3">
+            <?php if ($this->session->flashdata('success')) :  ?>
+              <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+                <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+                <strong><?= $this->session->flashdata('success'); ?></strong>
+              </div>
+            <?php endif; ?>
+          </div>
           <table class="table table-bordered tabel_arsip tabel-hover font-weight-bold" style="zoom: 90%;">
             <thead style="background-color: antiquewhite;">
               <tr>
