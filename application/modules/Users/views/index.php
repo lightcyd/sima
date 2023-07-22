@@ -110,18 +110,18 @@
           </div>
         </div>
         <div class="card-body">
-          <table class="table table-sm table-bordered tabel_arsip tabel-hover font-weight-bold" style="zoom: 80%;">
+          <table class="table table-bordered tabel_arsip tabel-hover font-weight-bold" style="zoom: 90%;">
             <thead style="background-color: antiquewhite;">
               <tr>
                 <th>NO</th>
                 <th style="width: 5%;">NO.MEMO</th>
-                <th style="width: 20%;">PIC</th>
-                <th style="width: 8%;">KAJIAN</th>
+                <th style="width: 5%;">KAJIAN</th>
                 <th style="width: 8%;">DIVISI</th>
+                <th>TGL MEMO</th>
+                <th>TGL DISPOSISI</th>
                 <th style="width: 8%;">TIPE</th>
-                <th>TGL</th>
-                <th>TGL PROS</th>
-                <th>TGL DOK</th>
+                <th style="width: 20%;">PIC</th>
+                <th>TGL PROSES</th>
                 <th>TGL SELESAI</th>
                 <th style="width: 8%;">HARI</th>
                 <th>PROGRESS</th>
@@ -129,8 +129,8 @@
               </tr>
             </thead>
           </table>
-
         </div>
+
       </div>
     </div>
   </div>
@@ -157,7 +157,15 @@
       "serverSide": true,
       "responsive": false,
       "destroy": true,
+      "scrollCollapse": true,
+      "scrollX": true,
       "select": false,
+      "columnDefs": [{
+        "targets": 2,
+        "render": function(data, type, row) {
+          return '<div class="scrollable-cell">' + data + '</div>';
+        }
+      }],
       "ajax": {
         "url": "<?php echo site_url('request_arsip_table'); ?>",
         "type": "POST",

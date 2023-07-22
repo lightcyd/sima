@@ -66,6 +66,7 @@ $route['add/arsip'] = 'Users/add_arsip';
 $route[md5('proses_simpan')] = 'Users/proses_simpan';
 $route['delete/arsip/(:any)'] = 'Users/delete_arsip/$1';
 $route['detail/(:any)'] = 'Users/detail_arsip/$1';
+$route[md5('proses_update')] = 'Users/proses_update';
 
 // END ROUTE USERS
 

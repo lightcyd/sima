@@ -31,7 +31,40 @@
 
   <!-- dateRangePicker -->
   <link rel="stylesheet" href="<?= base_url('assets/css/'); ?>jquery-ui.min.css">
+  <style>
+    /* Semua div kecuali dengan kelas "dataTables_scrollFoot" */
+    div:not(.dataTables_scrollFoot)::-webkit-scrollbar {
+      width: 6 px;
+      height: 5px;
+      /* Lebar scrollbar */
+      background-color: transparent;
+      /* Membuat scrollbar transparan */
+    }
 
+    div:not(.dataTables_scrollFoot)::-webkit-scrollbar-thumb {
+      background-color: rgba(230, 230, 230, 0.8);
+      /* Warna bagian body dari scrollbar (dengan transparansi) */
+      border-radius: 8px;
+      /* Bentuk radius pada body scrollbar */
+    }
+
+    div:not(.dataTables_scrollFoot)::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(198, 198, 198, 0.8)
+        /* Warna body scrollbar saat hover (dengan transparansi) */
+    }
+
+    div:not(.dataTables_scrollFoot)::-webkit-scrollbar-track {
+      background-color: transparent;
+      /* Membuat track scrollbar transparan */
+    }
+
+    .scrollable-cell {
+      max-height: 200px;
+      /* Atur tinggi maksimum sel, sesuaikan sesuai kebutuhan */
+      overflow-y: auto;
+      /* Atur overflow-y ke auto untuk menampilkan scrollbar jika teks melebihi tinggi maksimum */
+    }
+  </style>
 </head>
 
 <body class="layout-top-nav text-sm">
@@ -77,6 +110,7 @@
         </a>
         <!-- right menu nav -->
         <ul class="navbar-nav ml-auto">
+
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
               <i class="fas fa-bars"></i>
