@@ -98,7 +98,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary">
 			<!-- Brand Logo -->
-			<a href="http://localhost:8083" class="brand-link elevation-4">
+			<a href="<?= base_url(md5('admin')); ?>" class="brand-link elevation-4">
 				<img src="<?= base_url() ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-bold">SIMA ADMINISTRATOR</span>
 			</a>
@@ -107,9 +107,9 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
 						<li class="nav-item">
-							<a href="" class="nav-link">
+							<a href="<?= base_url(md5('admin')); ?>" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
-								<p>Widgets<span class="right badge badge-danger">New</span></p>
+								<p>Dashboard</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -121,19 +121,19 @@
 								<li class="nav-item">
 									<a href="<?= base_url('master_pic'); ?>" class="nav-link">
 										<i class="fas fa-users-cog nav-icon"></i>
-										<p>MASTER PIC</p>
+										<p>PIC</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="<?= base_url('master_divisi'); ?>" class="nav-link">
-										<i class="fas fa-cog nav-icon"></i>
-										<p>MASTER DIVISI & DEPARTMENT</p>
+										<i class="fas fa-asterisk nav-icon"></i>
+										<p>DIVISI & DEPARTMENT</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="<?= base_url('master_kajian'); ?>" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>MASTER KAJIAN</p>
+										<i class="far fa-file-alt nav-icon"></i>
+										<p>KAJIAN</p>
 									</a>
 								</li>
 
@@ -149,12 +149,14 @@
 
 		<div class="content-wrapper">
 			<?= $content; ?>
-
 		</div>
 		<!-- /.control-sidebar -->
 	</div>
 	<script>
 		$(document).ready(function() {
+			setInterval(() => {
+				$(".alert").alert('close');
+			}, 3000);
 			$(".datepicker").datepicker({
 				showWeek: true,
 				firstDay: 1,
@@ -199,10 +201,8 @@
 				'copy',
 				'colvis'
 			],
-			select: true,
-			responsive: true,
-			scrollY: '100vh',
-			scrollCollapse: true,
+			select: false,
+			responsive: true
 		});
 	</script>
 </body>

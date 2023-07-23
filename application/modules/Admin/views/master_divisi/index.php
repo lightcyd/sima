@@ -2,18 +2,22 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-lg-6">
-        <?php if ($this->session->flashdata('success')) :  ?>
-          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
-            <i class="fas fa-check-circle fa-2x"></i> &nbsp;
-            <strong><?= $this->session->flashdata('success'); ?></strong>
-          </div>
-        <?php endif; ?>
+
       </div>
     </div>
   </div>
 </div>
 <section class="content">
   <div class="container-fluid">
+    <?php if ($this->session->flashdata('success')) :  ?>
+      <div class="col-lg-6">
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+          <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+          <strong><?= $this->session->flashdata('success'); ?></strong>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <div class="d-flex flex-row justify-content-between">
       <div class="col-lg-6">
         <div class="card">
@@ -77,7 +81,7 @@
                     <td>
                       <div class="btn-group">
                         <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapus_dept"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
+                        <a href="<?= base_url('detail/department/' . $v['id']); ?>" class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -155,13 +159,6 @@
         }
       })
     });
-
     $('.tabel_pic').DataTable();
-
-    // Mengikuti perubahan tanggal pada elemen dengan ID "startdate"
-    $(".filter").on("click", function(e) {
-      e.preventDefault();
-      table1.ajax.reload();
-    });
   });
 </script>
