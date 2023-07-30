@@ -22,7 +22,7 @@ class Users extends CI_Controller
    */
   function dashboard()
   {
-    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
+    $data['divisi'] = $this->db->get('ms_divisi')->result_array();
     $data['pic'] = $this->db->get('ms_pic')->result_array();
     $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
     $data['prog'] = $this->db->get('ms_status')->result_array();
@@ -31,7 +31,7 @@ class Users extends CI_Controller
 
   function add_arsip()
   {
-    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
+    $data['divisi'] = $this->db->get('ms_divisi')->result_array();
     $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
     $data['pic'] = $this->db->get('ms_pic')->result_array();
     $data['prog'] = $this->db->get('ms_status')->result_array();
@@ -172,7 +172,7 @@ class Users extends CI_Controller
     $id = antixss(dekrip($this->uri->segment(2)));
 
     // DETAILS 
-    $data['devisi'] = $this->db->get('ms_divisi')->result_array();
+    $data['divisi'] = $this->db->get('ms_divisi')->result_array();
     $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
     $data['pic'] = $this->db->get('ms_pic')->result_array();
     $data['prog'] = $this->db->get('ms_status')->result_array();

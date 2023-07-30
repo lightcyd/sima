@@ -33,7 +33,7 @@
                     <label for="update_divisi" class="form-label">DIVISI <span class="text-danger">*</span></label>
                     <select type="text" name="update_divisi" id="update_divisi" class="form-control form-control-sm" disabled>
                       <option value="">[ PILIH DIVISI ]</option>
-                      <?php foreach ($devisi as $v) : ?>
+                      <?php foreach ($divisi as $v) : ?>
                         <option value="<?= $v['id']; ?>" <?= $arsip->divisi == $v['id'] ? 'selected' : '' ?>><?= $v['divisi']; ?></option>
                       <?php endforeach ?>
                     </select>
@@ -195,7 +195,7 @@
             <div class="d-flex flex-row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="update_tgl_memoirs" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
+                  <label for="update_tgl_memoirs" class="form-label text-muted">TANGGAL SELESAI MEMO IRS</label>
                   <input type="text" name="update_tgl_memoirs" id="update_tgl_memoirs" class="form-control form-control-sm datepicker" value="<?= $arsip->tgl_selesai ? $arsip->tgl_selesai : '' ?>" placeholder="Tanggal IRS" disabled>
                 </div>
               </div>
@@ -217,7 +217,7 @@
             <div class="d-flex flex-row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="update_tgl_implementasi" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
+                  <label for="update_tgl_implementasi" class="form-label text-muted">TANGGAL IMPLEMENTASI</label>
                   <input type="text" name="update_tgl_implementasi" class="form-control form-control-sm datepicker" id="update_tgl_implementasi" value="<?= $arsip->tgl_impl ? $arsip->tgl_impl : '' ?>" placeholder="Tanggal Implementasi" disabled>
                 </div>
               </div>
