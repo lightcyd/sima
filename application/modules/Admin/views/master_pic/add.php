@@ -38,7 +38,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_npp" class="form-label">NOMOR NPP <span class="text-danger">*</span></label>
-                      <input type="text" name="add_npp" id="add_npp" class="form-control form-control-sm <?= form_error('add_npp') ? 'is-invalid' : ''; ?>" placeholder="No. Memo" aria-describedby="add_npp" value="<?= set_value('add_npp'); ?>"></input>
+                      <input type="text" name="add_npp" id="add_npp" class="form-control form-control-sm <?= form_error('add_npp') ? 'is-invalid' : ''; ?>" placeholder="NPP" aria-describedby="add_npp" value="<?= set_value('add_npp'); ?>"></input>
                       <div class="invalid-feedback"><?= form_error('add_npp', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                   </div>
@@ -47,7 +47,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_nama" class="form-label">NAMA PIC <span class="text-danger">*</span></label>
-                      <input type="text" name="add_nama" class="form-control form-control-sm <?= form_error('add_nama') ? 'is-invalid' : ''; ?>" placeholder="Divisi" aria-describedby="add_nama">
+                      <input type="text" name="add_nama" class="form-control form-control-sm <?= form_error('add_nama') ? 'is-invalid' : ''; ?>" placeholder="Nama" aria-describedby="add_nama">
                       <div class="invalid-feedback"><?= form_error('add_nama', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                   </div>
@@ -56,7 +56,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_tgl_lahir" class="form-label">TANGGAL LAHIR <span class="text-danger">*</span></label>
-                      <input type="text" id="add_tgl_lahir" value="<?= set_value('add_tgl_lahir'); ?>" name="add_tgl_lahir" placeholder="Tanggal Memo" class="form-control form-control-sm datepicker <?= form_error('add_tgl_lahir') ? 'is-invalid' : ''; ?>" autocomplete="off"></input>
+                      <input type="text" id="add_tgl_lahir" value="<?= set_value('add_tgl_lahir'); ?>" name="add_tgl_lahir" placeholder="Tanggal Lahir" class="form-control form-control-sm datepicker <?= form_error('add_tgl_lahir') ? 'is-invalid' : ''; ?>" autocomplete="off"></input>
                       <div class="invalid-feedback"><?= form_error('add_tgl_lahir', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                   </div>
