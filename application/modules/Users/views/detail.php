@@ -4,6 +4,14 @@
   <div class="row">
     <div class="container">
       <div class="col-lg-12">
+
+        <?php if ($this->session->flashdata('success') or $this->session->flashdata('error')) :  ?>
+          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+            <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+            <strong><?= $this->session->flashdata('success') or $this->session->flashdata('error'); ?></strong>
+          </div>
+        <?php endif; ?>
+
         <!-- Default box -->
         <!-- Card Filter -->
         <div class="card">
@@ -241,21 +249,23 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="container">
       <div class="d-flex flex-row mb-5">
         <div class="col-lg-4">
-          <button class="btn btn-primary btn-sm btn-block" id="update">EDIT</button>
+          <button class="btn btn-primary btn-sm btn-block" id="update">EDIT <i class="fas fa-pencil-circle"></i></button>
         </div>
         <div class="col-lg-4">
-          <button class="btn btn-danger btn-sm btn-block" id="reset" disabled>CANCEL</button>
+          <button class="btn btn-danger btn-sm btn-block" id="reset" disabled>CANCEL <i class="fas fa-times"></i></button>
         </div>
         <div class="col-lg-4">
-          <button type="submit" class="btn btn-success btn-sm btn-block" id="submit" disabled>SUBMIT</button>
+          <button type="submit" class="btn btn-success btn-sm btn-block" id="submit" disabled>SUBMIT <i class="fas fa-check-circle"></i></button>
         </div>
       </div>
     </div>
   </div>
+
   <?= form_close(); ?>
 </section>
 
@@ -330,17 +340,10 @@
       "responsive": false,
       "destroy": true,
       "responsive": false,
-      // "columnDefs": [{
-      //   "targets": [0, 2, 3, 4],
-      //   "orderable": false
-      // }],
       "select": true,
       "ajax": {
         "url": "<?php echo site_url('request_arsip_table'); ?>",
         "type": "POST",
-        // "data": function(data) {
-        //   data.tgl = tgl_awal;
-        // },
         "error": function(jqXHR, textStatus, errorThrown) {
           try {
             // Coba untuk mengurai pesan kesalahan dalam respons JSON jika ada

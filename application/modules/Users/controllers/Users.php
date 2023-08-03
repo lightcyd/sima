@@ -54,7 +54,7 @@ class Users extends CI_Controller
    *It saves other form data to the tr_arsip table in the database.
    *Finally, it redirects the user to the add/arsip page.
    *Please note that without additional context or knowledge of the specific libraries or frameworks used, it's difficult to provide a complete understanding of the code's functionality
-   * 
+   *
    */
   function proses_simpan()
   {
@@ -144,6 +144,7 @@ class Users extends CI_Controller
         'file_memo_impl' => antixss($file_memo_imp),
         'tgl_impl' => antixss($post['tgl_implementasi']),
         'tgl_selesai' => antixss($post['tgl_memoirs']),
+        'created_at' => date('Y-m-d H:i:s')
       ];
 
       // Simpan data memo ke tabel tb_arsip
@@ -171,7 +172,7 @@ class Users extends CI_Controller
   {
     $id = antixss(dekrip($this->uri->segment(2)));
 
-    // DETAILS 
+    // DETAILS
     $data['divisi'] = $this->db->get('ms_divisi')->result_array();
     $data['kaji'] = $this->db->get('ms_jenis_kajian')->result_array();
     $data['pic'] = $this->db->get('ms_pic')->result_array();
@@ -187,7 +188,6 @@ class Users extends CI_Controller
 
   function proses_update()
   {
-
     // BUG EDIT REPLACE FILE
     // Konfigurasi upload
     $config = [
@@ -204,10 +204,8 @@ class Users extends CI_Controller
     $post = $this->input->post();
 
     // Get the id_group_file from the form data
-    // $id_group = generate_unique_id('tr_arsip', 'group_file_id'); // Assuming 'update_id_group' is the name of the input field that holds the id_group value.
     $id_group = antixss($post['update_id_group']);
-
-    $new_id = generate_unique_id('tr_arsip', 'group_file_id');
+    $test = enkrip($post['update_id_group']);
 
 
     // Lakukan update file menggunakan fungsi upload_file()
@@ -228,8 +226,8 @@ class Users extends CI_Controller
       'tgl_disposisi' => antixss($post['update_tgl_disposisi']),
       'tgl_input' => antixss($post['update_tgl_kelengkapan_memo']),
       'tgl_impl' => antixss($post['update_tgl_implementasi']),
-      'group_file_id' => $new_id,
       'tgl_selesai' => antixss($post['update_tgl_memoirs']),
+      'updated_at' => date('Y-m-d H:i:s')
     ];
 
     // Only update file fields if there are new files uploaded
@@ -252,7 +250,7 @@ class Users extends CI_Controller
     if (!empty($_FILES['memo_file_update']['name'])) {
       $departemen_ids = $this->input->post('id_departemen_file'); // Mengambil array departemen_id dari inputan
 
-      // Melakukan upload untuk setiap file yang diunggah
+      // Melakukan update atau insert untuk setiap file yang diunggah
       foreach ($_FILES['memo_file_update']['name'] as $key => $filename) {
         $_FILES['userfile']['name']     = $_FILES['memo_file_update']['name'][$key];
         $_FILES['userfile']['type']     = $_FILES['memo_file_update']['type'][$key];
@@ -260,33 +258,45 @@ class Users extends CI_Controller
         $_FILES['userfile']['error']    = $_FILES['memo_file_update']['error'][$key];
         $_FILES['userfile']['size']     = $_FILES['memo_file_update']['size'][$key];
 
+        // Mendapatkan departemen_id sesuai dengan indeks saat ini
+        $departemen_id = $departemen_ids[$key];
+
+        // Cek apakah data file dengan id_group_file dan departemen_id sudah ada dalam database
+        $existing_data = $this->db->get_where('tb_arsip_file', ['id_group_file' => $id_group, 'departmen_id' => $departemen_id])->row();
+        // var_dump($existing_data);
+        // die;
+
         if ($this->upload->do_upload('userfile')) {
           $data = $this->upload->data();
 
           // Simpan informasi file ke database
           $file_path = $data['file_name']; // Mendapatkan nama file yang diunggah
 
-          // Mendapatkan departemen_id sesuai dengan indeks saat ini
-          $departemen_id = $departemen_ids[$key];
-
-          // Simpan informasi file ke dalam tabel
-          $this->db->insert('tb_arsip_file', [
-            'id_group_file' => $new_id,
-            'departmen_id' => $departemen_id,
-            'file_memo' => $file_path
-          ]);
+          if ($existing_data) {
+            // Data file sudah ada, lakukan update
+            $this->db->where(['id_group_file' => $id_group, 'departmen_id' => $departemen_id])->update('tb_arsip_file', [
+              'file_memo' => $file_path,
+              'updated_at' => date('Y-m-d H:i:s')
+            ]);
+          } else {
+            // Data file belum ada, lakukan insert
+            $this->db->insert('tb_arsip_file', [
+              'id_group_file' => $id_group,
+              'departmen_id' => $departemen_id,
+              'file_memo' => $file_path,
+              'created_at' => date('Y-m-d H:i:s')
+            ]);
+          }
         } else {
           // Menangani kesalahan upload, misalnya file terlalu besar atau format file tidak diizinkan
           $error = $this->upload->display_errors();
-          $this->session->set_flashdata($error);
-          $this->detail_arsip();
-          // Tambahkan log atau tindakan lain sesuai kebutuhan
+          $this->session->set_flashdata('error', 'Failed to upload file for Departemen ID ' . $departemen_id . ': ' . $error);
+          redirect(base_url('detail/' . $test)); // Redirect back to the edit page after update
         }
       }
     }
-
     $this->session->set_flashdata('success', 'MEMO ARSIP BERHASIL DIUPDATE!');
-    redirect(base_url()); // Redirect back to the edit page after update
+    redirect(base_url('detail/' . $test));
   }
 
 
@@ -352,7 +362,8 @@ class Users extends CI_Controller
     foreach ($list as $v) {
       $no++;
       $id_group = enkrip($v->group_id);
-      $id = preg_replace('/[^a-zA-Z0-9,]/', '', $id_group);
+      // $id = preg_replace('/[^a-zA-Z0-9,]/', '', $id_group);
+
       $row = array();
       $row[] = $no;
       $row[] = $v->no_memo;
@@ -366,7 +377,7 @@ class Users extends CI_Controller
       $row[] = !empty($v->tgl_selesai) ? date('d-M-Y', strtotime($v->tgl_selesai)) : '-';
       $row[] = $v->jarak_hari . ' Hari';
       $row[] = '<h6><span class="badge badge-primary"> ' . strtoupper($v->sts) . '</span></h6>';
-      $row[] = '<div class="btn-group"><a type="button" class="btn btn-secondary btn-xs" href="' . base_url('detail/' . $id) . '"><i class="fa fa-eye"></i></a><a type="button" class="btn btn-danger ml-1 btn-xs" href="' . base_url('delete/arsip/' . $v->group_id) . '" ><i class="fa fa-trash"></i></a></div>';
+      $row[] = '<div class="btn-group"><a type="button" class="btn btn-secondary btn-xs" href="' . base_url('detail/' . $id_group) . '"><i class="fa fa-eye"></i></a><a type="button" class="btn btn-danger ml-1 btn-xs" href="' . base_url('delete/arsip/' . $v->group_id) . '" ><i class="fa fa-trash"></i></a></div>';
       $data[] = $row;
     }
 
