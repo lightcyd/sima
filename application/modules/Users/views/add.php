@@ -41,7 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <label for="add_divisi" class="form-label">DIVISI <span class="text-danger">*</span></label>
                   <select type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm <?= form_error('add_divisi') ? 'is-invalid' : ''; ?>">
                     <option value="">[ PILIH DIVISI ]</option>
-                    <?php foreach ($devisi as $v) : ?>
+                    <?php foreach ($divisi as $v) : ?>
                       <option value="<?= $v['id']; ?>" <?= set_value('add_divisi') == $v['id'] ? 'selected' : ''; ?>><?= $v['divisi']; ?></option>
                     <?php endforeach ?>
                   </select>
@@ -118,7 +118,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-12">
               <div class="mb-2">
                 <div class="form-group">
-                  <label for="add_kajian_resiko" class="form-label">KAJIAN RESIKO <span class="text-danger">*</span></label>
+                  <label for="add_kajian_resiko" class="form-label">KAJIAN RISIKO <span class="text-danger">*</span></label>
                   <textarea name="add_kajian_resiko" id="add_kajian_resiko" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_kajian_resiko') ? 'is-invalid' : ''; ?>" placeholder="Ketik disini..."><?= set_value('add_kajian_resiko'); ?></textarea>
                   <div class="invalid-feedback"><?= form_error('add_kajian_resiko', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
@@ -127,7 +127,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <div class="col-lg-12">
               <div class="mb-2">
                 <div class="form-group">
-                  <label for="add_follow_up" class="form-label">Follow Up<span class="text-danger">*</span></label>
+                  <label for="add_follow_up" class="form-label">FOLLOW UP<span class="text-danger">*</span></label>
                   <textarea name="add_follow_up" id="add_follow_up" cols="1" rows="3" class="form-control form-control-sm <?= form_error('add_follow_up') ? 'is-invalid' : ''; ?>" placeholder="Ketik disini..."><?= set_value('add_follow_up'); ?></textarea>
                   <div class="invalid-feedback"><?= form_error('add_kajian_resiko', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                 </div>
@@ -138,7 +138,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex align-items-center align-middle">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="add_tgl_kelengkapan_memo" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA MEMO</label>
+                <label for="add_tgl_kelengkapan_memo" class="form-label text-muted">TANGGAL INPUT DOKUMEN TERAKHIR</label>
                 <input value="<?= set_value('add_tgl_kelengkapan_memo'); ?>" type="text" name="add_tgl_kelengkapan_memo" id="add_tgl_kelengkapan_memo" class="form-control ml-2 form-control-sm datepicker <?= form_error('add_tgl_kelengkapan_memo') ? 'is-invalid' : ''; ?>" placeholder="Pilih Tanggal" autocomplete="off">
                 <div class="invalid-feedback"><?= form_error('add_tgl_kelengkapan_memo', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
               </div>

@@ -4,6 +4,14 @@
   <div class="row">
     <div class="container">
       <div class="col-lg-12">
+
+        <?php if ($this->session->flashdata('success') or $this->session->flashdata('error')) :  ?>
+          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+            <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+            <strong><?= $this->session->flashdata('success') or $this->session->flashdata('error'); ?></strong>
+          </div>
+        <?php endif; ?>
+
         <!-- Default box -->
         <!-- Card Filter -->
         <div class="card">
@@ -33,7 +41,7 @@
                     <label for="update_divisi" class="form-label">DIVISI <span class="text-danger">*</span></label>
                     <select type="text" name="update_divisi" id="update_divisi" class="form-control form-control-sm" disabled>
                       <option value="">[ PILIH DIVISI ]</option>
-                      <?php foreach ($devisi as $v) : ?>
+                      <?php foreach ($divisi as $v) : ?>
                         <option value="<?= $v['id']; ?>" <?= $arsip->divisi == $v['id'] ? 'selected' : '' ?>><?= $v['divisi']; ?></option>
                       <?php endforeach ?>
                     </select>
@@ -195,7 +203,7 @@
             <div class="d-flex flex-row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="update_tgl_memoirs" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
+                  <label for="update_tgl_memoirs" class="form-label text-muted">TANGGAL SELESAI MEMO IRS</label>
                   <input type="text" name="update_tgl_memoirs" id="update_tgl_memoirs" class="form-control form-control-sm datepicker" value="<?= $arsip->tgl_selesai ? $arsip->tgl_selesai : '' ?>" placeholder="Tanggal IRS" disabled>
                 </div>
               </div>
@@ -217,7 +225,7 @@
             <div class="d-flex flex-row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="update_tgl_implementasi" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
+                  <label for="update_tgl_implementasi" class="form-label text-muted">TANGGAL IMPLEMENTASI</label>
                   <input type="text" name="update_tgl_implementasi" class="form-control form-control-sm datepicker" id="update_tgl_implementasi" value="<?= $arsip->tgl_impl ? $arsip->tgl_impl : '' ?>" placeholder="Tanggal Implementasi" disabled>
                 </div>
               </div>
@@ -241,21 +249,23 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="container">
       <div class="d-flex flex-row mb-5">
         <div class="col-lg-4">
-          <button class="btn btn-primary btn-sm btn-block" id="update">EDIT</button>
+          <button class="btn btn-primary btn-sm btn-block" id="update">EDIT <i class="fas fa-pencil-circle"></i></button>
         </div>
         <div class="col-lg-4">
-          <button class="btn btn-danger btn-sm btn-block" id="reset" disabled>CANCEL</button>
+          <button class="btn btn-danger btn-sm btn-block" id="reset" disabled>CANCEL <i class="fas fa-times"></i></button>
         </div>
         <div class="col-lg-4">
-          <button type="submit" class="btn btn-success btn-sm btn-block" id="submit" disabled>SUBMIT</button>
+          <button type="submit" class="btn btn-success btn-sm btn-block" id="submit" disabled>SUBMIT <i class="fas fa-check-circle"></i></button>
         </div>
       </div>
     </div>
   </div>
+
   <?= form_close(); ?>
 </section>
 
@@ -330,17 +340,10 @@
       "responsive": false,
       "destroy": true,
       "responsive": false,
-      // "columnDefs": [{
-      //   "targets": [0, 2, 3, 4],
-      //   "orderable": false
-      // }],
       "select": true,
       "ajax": {
         "url": "<?php echo site_url('request_arsip_table'); ?>",
         "type": "POST",
-        // "data": function(data) {
-        //   data.tgl = tgl_awal;
-        // },
         "error": function(jqXHR, textStatus, errorThrown) {
           try {
             // Coba untuk mengurai pesan kesalahan dalam respons JSON jika ada

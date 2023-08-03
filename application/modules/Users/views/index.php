@@ -33,11 +33,11 @@
             <div class="row mt-2">
               <div class="col-lg-3">
                 <div class="form-group">
-                  <label>Devisi</label>
+                  <label>Divisi</label>
                   <div class="input-group">
-                    <select name="devisi" id="devisi" class="form-control form-control-sm">
+                    <select name="divisi" id="divisi" class="form-control form-control-sm">
                       <option value="" selected disabled><b>Filter Divisi</b></option>
-                      <?php foreach ($devisi as $v) : ?>
+                      <?php foreach ($divisi as $v) : ?>
                         <option value="<?= $v['divisi']; ?>"><?= $v['divisi']; ?></option>
                       <?php endforeach ?>
                       <option value="">ALL</option>
@@ -180,7 +180,7 @@
         "data": function(data) {
           data.tgl_awal = $(".tgl_awal").val();
           data.tgl_akhir = $(".tgl_akhir").val();
-          data.divisi = $("#devisi").val();
+          data.divisi = $("#divisi").val();
           data.pic = $("#pic").val();
           data.kajian = $("#kajian").val();
           data.progress = $("#progress").val();
