@@ -249,7 +249,8 @@ class Users extends CI_Controller
 
     if (!empty($_FILES['memo_file_update']['name'])) {
       $departemen_ids = $this->input->post('id_departemen_file'); // Mengambil array departemen_id dari inputan
-
+      // var_dump($departemen_ids);
+      // die;
       // Melakukan update atau insert untuk setiap file yang diunggah
       foreach ($_FILES['memo_file_update']['name'] as $key => $filename) {
         $_FILES['userfile']['name']     = $_FILES['memo_file_update']['name'][$key];
@@ -263,8 +264,6 @@ class Users extends CI_Controller
 
         // Cek apakah data file dengan id_group_file dan departemen_id sudah ada dalam database
         $existing_data = $this->db->get_where('tb_arsip_file', ['id_group_file' => $id_group, 'departmen_id' => $departemen_id])->row();
-        // var_dump($existing_data);
-        // die;
 
         if ($this->upload->do_upload('userfile')) {
           $data = $this->upload->data();
@@ -272,31 +271,25 @@ class Users extends CI_Controller
           // Simpan informasi file ke database
           $file_path = $data['file_name']; // Mendapatkan nama file yang diunggah
 
-          if ($existing_data) {
-            // Data file sudah ada, lakukan update
-            $this->db->where(['id_group_file' => $id_group, 'departmen_id' => $departemen_id])->update('tb_arsip_file', [
-              'file_memo' => $file_path,
-              'updated_at' => date('Y-m-d H:i:s')
-            ]);
-          } else {
-            // Data file belum ada, lakukan insert
+          if (!$existing_data) {
             $this->db->insert('tb_arsip_file', [
               'id_group_file' => $id_group,
               'departmen_id' => $departemen_id,
-              'file_memo' => $file_path,
-              'created_at' => date('Y-m-d H:i:s')
+              'file_memo' => $file_path
             ]);
+          } else {
+            $this->db->where(['id_group_file' => $id_group, 'departmen_id' => $departemen_id])->update('tb_arsip_file', ['file_memo' => $file_path]);
           }
         } else {
           // Menangani kesalahan upload, misalnya file terlalu besar atau format file tidak diizinkan
           $error = $this->upload->display_errors();
           $this->session->set_flashdata('error', 'Failed to upload file for Departemen ID ' . $departemen_id . ': ' . $error);
-          redirect(base_url('detail/' . $test)); // Redirect back to the edit page after update
         }
       }
     }
+
     $this->session->set_flashdata('success', 'MEMO ARSIP BERHASIL DIUPDATE!');
-    redirect(base_url('detail/' . $test));
+    redirect(base_url('detail/' . $test)); // Redirect back to the edit page after updat
   }
 
 

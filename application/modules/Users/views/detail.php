@@ -5,13 +5,12 @@
     <div class="container">
       <div class="col-lg-12">
 
-        <?php if ($this->session->flashdata('success') or $this->session->flashdata('error')) :  ?>
+        <?php if ($this->session->flashdata('success')) :  ?>
           <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
             <i class="fas fa-check-circle fa-2x"></i> &nbsp;
-            <strong><?= $this->session->flashdata('success') or $this->session->flashdata('error'); ?></strong>
+            <strong><?= $this->session->flashdata('success'); ?></strong>
           </div>
         <?php endif; ?>
-
         <!-- Default box -->
         <!-- Card Filter -->
         <div class="card">
@@ -179,6 +178,7 @@
               </div>
               <div class="col-lg-12">
                 <div class="row">
+
                   <?php foreach ($kelompok as $v) : ?>
                     <div class="col-md-3">
                       <div class="mb-3">
@@ -195,7 +195,6 @@
                       </div>
                     </div>
                   <?php endforeach ?>
-
                 </div>
               </div>
             </div>
