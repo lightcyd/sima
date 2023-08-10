@@ -196,7 +196,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex flex-row">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="tgl_memoirs" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IRS</label>
+                <label for="tgl_memoirs" class="form-label text-muted">TANGGAL KELUAR MEMO IRS</label>
                 <input type="text" id="tgl_memoirs" name="tgl_memoirs" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>
@@ -210,7 +210,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <div class="d-flex flex-row">
             <div class="col-lg-6">
               <div class="mb-3">
-                <label for="tgl_implementasi" class="form-label text-muted">TANGGAL INPUT KELENGKAPAN DATA IMPLEMENTASI</label>
+                <label for="tgl_implementasi" class="form-label text-muted">TANGGAL MEMO IMPLEMENTASI</label>
                 <input type="text" name="tgl_implementasi" id="tgl_implementasi" class="form-control form-control-sm datepicker" placeholder="Pilih Tanggal" autocomplete="off">
               </div>
             </div>

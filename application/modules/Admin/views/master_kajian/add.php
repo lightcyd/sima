@@ -38,7 +38,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_kajian" class="form-label">KAJIAN <span class="text-danger">*</span></label>
-                      <input type="text" name="add_kajian" id="add_kajian" class="form-control form-control-sm <?= form_error('add_kajian') ? 'is-invalid' : ''; ?>" placeholder="Nama divisi" aria-describedby="add_kajian" value="<?= set_value('add_kajian'); ?>"></input>
+                      <input type="text" name="add_kajian" id="add_kajian" class="form-control form-control-sm <?= form_error('add_kajian') ? 'is-invalid' : ''; ?>" placeholder="Jenis Kajian" aria-describedby="add_kajian" value="<?= set_value('add_kajian'); ?>"></input>
                       <div class="invalid-feedback"><?= form_error('add_kajian', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                     <button class="btn btn-sm btn-secondary back"><i class="fas fa-arrow-alt-circle-left"></i> KEMBALI</button>

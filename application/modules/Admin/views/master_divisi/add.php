@@ -38,7 +38,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_npp" class="form-label">DIVISI <span class="text-danger">*</span></label>
-                      <input type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm <?= form_error('add_divisi') ? 'is-invalid' : ''; ?>" placeholder="Nama divisi" aria-describedby="add_divisi" value="<?= set_value('add_divisi'); ?>"></input>
+                      <input type="text" name="add_divisi" id="add_divisi" class="form-control form-control-sm <?= form_error('add_divisi') ? 'is-invalid' : ''; ?>" placeholder="Nama Divisi" aria-describedby="add_divisi" value="<?= set_value('add_divisi'); ?>"></input>
                       <div class="invalid-feedback"><?= form_error('add_divisi', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                     <button class="btn btn-sm btn-secondary back"><i class="fas fa-arrow-alt-circle-left"></i> KEMBALI</button>
