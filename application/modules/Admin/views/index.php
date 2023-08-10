@@ -4,8 +4,7 @@
     <div class="card">
 
       <div class="card-body">
-        Start creating your amazing application!
-        <?= var_dump($this->session->userdata()); ?>
+        <h3>ADMINISTRATOR | <?= $this->session->userdata('nama'); ?></h3>
       </div>
       <!-- /.card-body -->
     </div>

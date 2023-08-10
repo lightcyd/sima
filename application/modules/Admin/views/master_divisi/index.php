@@ -2,18 +2,22 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-lg-6">
-        <?php if ($this->session->flashdata('success')) :  ?>
-          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
-            <i class="fas fa-check-circle fa-2x"></i> &nbsp;
-            <strong><?= $this->session->flashdata('success'); ?></strong>
-          </div>
-        <?php endif; ?>
+
       </div>
     </div>
   </div>
 </div>
 <section class="content">
   <div class="container-fluid">
+    <?php if ($this->session->flashdata('success')) :  ?>
+      <div class="col-lg-6">
+        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mt-2" role="alert">
+          <i class="fas fa-check-circle fa-2x"></i> &nbsp;
+          <strong><?= $this->session->flashdata('success'); ?></strong>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <div class="d-flex flex-row justify-content-between">
       <div class="col-lg-6">
         <div class="card">
@@ -40,8 +44,8 @@
                     <td><?= $v['divisi'] ?></td>
                     <td>
                       <div class="btn-group">
-                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapuspic"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
+                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapus_divisi"><i class="fas fa-trash"></i></button>
+                        <a href="<?= base_url('detail/divisi/' . $v['id']); ?>" class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -76,8 +80,8 @@
                     <td><?= $v['department'] ?></td>
                     <td>
                       <div class="btn-group">
-                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapuspic"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
+                        <button value="<?= $v['id']; ?>" class="btn btn-sm btn-danger hapus_dept"><i class="fas fa-trash"></i></button>
+                        <a href="<?= base_url('detail/department/' . $v['id']); ?>" class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -100,10 +104,9 @@
       theme: "classic"
     });
 
-    $(".hapuspic").click(function(e) {
+    $(".hapus_divisi").click(function(e) {
       e.preventDefault();
       var id = $(this).val();
-
       Swal.fire({
         title: 'Do you want to delete?',
         showCancelButton: true,
@@ -113,7 +116,7 @@
         if (result.isConfirmed) {
           $.ajax({
             type: "post",
-            url: "<?= base_url('delete_pic') ?>",
+            url: "<?= base_url('delete_divisi') ?>",
             data: {
               id: id
             },
@@ -127,15 +130,35 @@
           Swal.fire('Changes are not saved', '', 'info')
         }
       })
-
     });
 
-    $('.tabel_pic').DataTable();
-
-    // Mengikuti perubahan tanggal pada elemen dengan ID "startdate"
-    $(".filter").on("click", function(e) {
+    $(".hapus_dept").click(function(e) {
       e.preventDefault();
-      table1.ajax.reload();
+      var id = $(this).val();
+      Swal.fire({
+        title: 'Do you want to delete?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes!',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "post",
+            url: "<?= base_url('delete_department') ?>",
+            data: {
+              id: id
+            },
+            dataType: "json",
+            success: function(response) {
+              Swal.fire('Saved!', '', 'success')
+              location.reload();
+            }
+          });
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
     });
+    $('.tabel_pic').DataTable();
   });
 </script>

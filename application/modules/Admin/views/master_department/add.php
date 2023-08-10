@@ -38,7 +38,7 @@
                   <div class="mb-2">
                     <div class="form-group">
                       <label for="add_department" class="form-label">DEPARTMENT <span class="text-danger">*</span></label>
-                      <input type="text" name="add_department" id="add_department" class="form-control form-control-sm <?= form_error('add_department') ? 'is-invalid' : ''; ?>" placeholder="Nama divisi" aria-describedby="add_department" value="<?= set_value('add_department'); ?>"></input>
+                      <input type="text" name="add_department" id="add_department" class="form-control form-control-sm <?= form_error('add_department') ? 'is-invalid' : ''; ?>" placeholder="Nama Department" aria-describedby="add_department" value="<?= set_value('add_department'); ?>"></input>
                       <div class="invalid-feedback"><?= form_error('add_department', '<p class="text-danger font-weight-bold">', '</p>'); ?></div>
                     </div>
                     <button class="btn btn-sm btn-secondary back"><i class="fas fa-arrow-alt-circle-left"></i> KEMBALI</button>

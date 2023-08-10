@@ -38,7 +38,7 @@
                       <td>
                         <div class="btn-group">
                           <button value="<?= $v['npp_pic']; ?>" class="btn btn-sm btn-danger hapuspic"><i class="fas fa-trash"></i></button>
-                          <button class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></button>
+                          <a href="<?= base_url('detail/pic/') . $v['npp_pic'] ?>" class="btn btn-sm btn-info ml-1"><i class="fas fa-eye"></i></a>
                         </div>
                       </td>
                     </tr>

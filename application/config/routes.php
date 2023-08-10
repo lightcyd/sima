@@ -65,15 +65,27 @@ $route['master_department'] = 'Admin/index_department';
 // CRUD PIC
 $route['master_pic'] = 'Admin/index_pic';
 $route['add/pic'] = 'Admin/add_pic';
+$route['detail/pic/(:any)'] = 'Admin/detail_pic/$1';
 $route['proses_add_pic'] = 'Admin/proses_add_pic';
+$route['update_pic'] = 'Admin/proses_update_pic';
 $route['delete_pic'] = 'Admin/delete_pic';
 
 // CRUD DIVIS
 $route['add/divisi'] = 'Admin/add_divisi';
+$route['update_divisi'] = 'Admin/update_divisi';
 $route['prosess'] = 'Admin/proses'; #proses add divisi dan add departement
+$route['delete_divisi'] = 'Admin/delete_divisi';
+$route['detail/divisi/(:any)'] = 'Admin/detail_divisi/$1';
 
 // CRUD DEPARTMENT
 $route['add/department'] = 'Admin/add_department';
+$route['delete_department'] = 'Admin/delete_department';
+$route['detail/department/(:any)'] = 'Admin/detail_department/$1';
+
+// CRUD KAJIAN
+$route['add/kajian'] = 'Admin/add_kajian';
+$route['delete/kajian'] =  'Admin/delete_kajian';
+$route['detail/kajian/(:any)'] = 'Admin/detail_kajian/$1';
 
 // Dashboard Users
 $route[md5('users')] = 'Users/dashboard';
